@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors();
+
 builder.Services.AddDbContext<StoreContext>(options =>
 {
     options.UseSqlite(
@@ -14,6 +16,13 @@ builder.Services.AddDbContext<StoreContext>(options =>
 });
 
 var app = builder.Build();
+
+app.UseCors(opt =>
+{
+    opt.AllowAnyHeader();
+    opt.AllowAnyMethod();
+    opt.WithOrigins("https://localhost:3000");
+});
 
 // Configure the HTTP request pipeline.
 

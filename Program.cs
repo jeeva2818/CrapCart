@@ -1,11 +1,15 @@
 using CrapCart.Data;
 using Microsoft.EntityFrameworkCore;
+using CrapCart.Middleware;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 builder.Services.AddCors();
 
@@ -16,6 +20,8 @@ builder.Services.AddDbContext<StoreContext>(options =>
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors(opt =>
 {

@@ -1,17 +1,24 @@
 using CrapCart.Data;
 using Microsoft.EntityFrameworkCore;
 using CrapCart.Middleware;
-
-
+using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 
 builder.Services.AddTransient<ExceptionMiddleware>();
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("https://localhost:3000")
+            .AllowCredentials();
+    });
+});
 
 builder.Services.AddDbContext<StoreContext>(options =>
 {
@@ -23,14 +30,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-app.UseCors(opt =>
-{
-    opt.AllowAnyHeader();
-    opt.AllowAnyMethod();
-    opt.WithOrigins("https://localhost:3000");
-});
-
-// Configure the HTTP request pipeline.
+app.UseCors("CorsPolicy");
 
 app.MapControllers();
 

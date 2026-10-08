@@ -1,3 +1,4 @@
+
 using CrapCart.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -10,41 +11,78 @@ public class DbInitializer
     {
         using var scope = app.Services.CreateScope();
 
-        var context = scope.ServiceProvider.GetRequiredService<StoreContext>()
-            ?? throw new InvalidOperationException("Failed to retrieve store context");
-            var userManager = scope.ServiceProvider
-    .GetRequiredService<UserManager<User>>();
+        var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
 
-        await SeedData(context, userManager);
+        var userManager = scope.ServiceProvider
+            .GetRequiredService<UserManager<User>>();
+
+        var roleManager = scope.ServiceProvider
+            .GetRequiredService<RoleManager<IdentityRole>>();
+
+        await SeedData(context, userManager, roleManager);
     }
 
     private static async Task SeedData(
-    StoreContext context,
-    UserManager<User> userManager)
+        StoreContext context,
+        UserManager<User> userManager,
+        RoleManager<IdentityRole> roleManager)
     {
-        context.Database.Migrate();
-        if (!userManager.Users.Any())
-{
-    var user = new User
-    {
-        UserName = "bob@test.com",
-        Email = "bob@test.com"
-    };
+        await context.Database.MigrateAsync();
 
-    await userManager.CreateAsync(user, "Pa$$W0rd");
-    await userManager.AddToRoleAsync(user, "member");
+        // Make sure the roles exist
+        if (!await roleManager.RoleExistsAsync("member"))
+        {
+            await roleManager.CreateAsync(new IdentityRole("member"));
+        }
 
-    var admin = new User
-    {
-        UserName = "admin@test.com",
-        Email = "admin@test.com"
-    };
+        if (!await roleManager.RoleExistsAsync("admin"))
+        {
+            await roleManager.CreateAsync(new IdentityRole("admin"));
+        }
 
-    await userManager.CreateAsync(admin, "Pa$$W0rd");
-    await userManager.AddToRolesAsync(admin, ["member", "admin"]);
-}
-        
+        // Create users if they don't exist
+        var bob = await userManager.FindByEmailAsync("bob@test.com");
 
+        if (bob == null)
+        {
+            bob = new User
+            {
+                UserName = "bob@test.com",
+                Email = "bob@test.com"
+            };
+
+            await userManager.CreateAsync(bob, "Pa$$W0rd");
+        }
+
+        if (!await userManager.IsInRoleAsync(bob, "member"))
+        {
+            await userManager.AddToRoleAsync(bob, "member");
+        }
+
+        var admin = await userManager.FindByEmailAsync("admin@test.com");
+
+        if (admin == null)
+        {
+            admin = new User
+            {
+                UserName = "admin@test.com",
+                Email = "admin@test.com"
+            };
+
+            await userManager.CreateAsync(admin, "Pa$$W0rd");
+        }
+
+        if (!await userManager.IsInRoleAsync(admin, "member"))
+        {
+            await userManager.AddToRoleAsync(admin, "member");
+        }
+
+        if (!await userManager.IsInRoleAsync(admin, "admin"))
+        {
+            await userManager.AddToRoleAsync(admin, "admin");
+        }
+
+        // Seed products only if there are no products
         if (context.Products.Any())
         {
             return;
@@ -252,6 +290,7 @@ public class DbInitializer
         };
 
         context.Products.AddRange(products);
-        context.SaveChanges();
+
+        await context.SaveChangesAsync();
     }
 }

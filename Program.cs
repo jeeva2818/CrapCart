@@ -1,12 +1,16 @@
+
 using CrapCart.Data;
 using Microsoft.EntityFrameworkCore;
 using CrapCart.Middleware;
 using CrapCart.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-
+using CrapCart.Helpers;
+using CrapCart.RequestHelpers;
+using CrapCart.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services
     .AddIdentityApiEndpoints<User>(options =>
     {
@@ -16,6 +20,18 @@ builder.Services
     .AddEntityFrameworkStores<StoreContext>();
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<ImageService>();
+
+builder.Services.AddScoped<DiscountService>();
+
+builder.Services.Configure<CloudinarySettings>(
+    builder.Configuration.GetSection("Cloudinary"));
+
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<MappingProfiles>();
+});
 
 builder.Services.AddTransient<ExceptionMiddleware>();
 
@@ -45,9 +61,11 @@ app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapGroup("/api").MapIdentityApi<User>();
 app.MapControllers();
 
 await DbInitializer.InitDb(app);
 
 app.Run();
+

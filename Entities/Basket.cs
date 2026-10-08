@@ -8,45 +8,53 @@ public class Basket
 
     public List<BasketItem> Items { get; set; } = [];
 
+    public AppCoupon? Coupon { get; set; }
+
     public void AddItem(Product product, int quantity)
-{
-    ArgumentNullException.ThrowIfNull(product);
-
-    if (quantity <= 0)
-        throw new ArgumentException("Quantity should be greater than zero.", nameof(quantity));
-
-    var existingItem = FindItem(product.Id);
-
-    if (existingItem == null)
     {
-        Items.Add(new BasketItem
+        ArgumentNullException.ThrowIfNull(product);
+
+        if (quantity <= 0)
+            throw new ArgumentException(
+                "Quantity should be greater than zero.",
+                nameof(quantity));
+
+        var existingItem = FindItem(product.Id);
+
+        if (existingItem == null)
         {
-            Product = product,
-            Quantity = quantity
-        });
+            Items.Add(new BasketItem
+            {
+                Product = product,
+                Quantity = quantity
+            });
+        }
+        else
+        {
+            existingItem.Quantity += quantity;
+        }
     }
-    else
+
+    public void RemoveItem(int productId, int quantity)
     {
-        existingItem.Quantity += quantity;
-    }    
-}
+        if (quantity <= 0)
+            throw new ArgumentException(
+                "Quantity should be greater than zero.",
+                nameof(quantity));
 
-public void RemoveItem(int productId, int quantity)
-{
-    if (quantity <= 0)
-        throw new ArgumentException("Quantity should be greater than zero.", nameof(quantity));
+        var item = FindItem(productId);
 
-    var item = FindItem(productId);
+        if (item == null) return;
 
-    if (item == null) return;
+        item.Quantity -= quantity;
 
-    item.Quantity -= quantity;
+        if (item.Quantity <= 0)
+            Items.Remove(item);
+    }
 
-    if (item.Quantity <= 0)
-        Items.Remove(item);
-}
-private BasketItem? FindItem(int productId)
-{
-    return Items.FirstOrDefault(item => item.ProductId == productId);
-}
+    private BasketItem? FindItem(int productId)
+    {
+        return Items.FirstOrDefault(
+            item => item.ProductId == productId);
+    }
 }

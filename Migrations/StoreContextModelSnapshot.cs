@@ -120,6 +120,9 @@ namespace CrapCart.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PublicId")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("QuantityInStock")
                         .HasColumnType("INTEGER");
 
@@ -343,6 +346,43 @@ namespace CrapCart.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("CrapCart.Entities.Basket", b =>
+                {
+                    b.OwnsOne("CrapCart.Entities.AppCoupon", "Coupon", b1 =>
+                        {
+                            b1.Property<int>("BasketId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<long?>("AmountOff")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("CouponId")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<decimal?>("PercentOff")
+                                .HasPrecision(5, 2)
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("PromotionCode")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("BasketId");
+
+                            b1.ToTable("Baskets");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BasketId");
+                        });
+
+                    b.Navigation("Coupon");
                 });
 
             modelBuilder.Entity("CrapCart.Entities.BasketItem", b =>

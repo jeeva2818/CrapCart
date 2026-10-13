@@ -1,0 +1,299 @@
+Project Creation ->
+
+ inside the project file ->    dotnet new sln (for create a solution file) 
+ -> dotnet new webapi -n CrapCart -controllers ( Project Creation with Controllers) 
+ -> dotnet sln add CrapCart (to add the CrapCart to sln container)
+
+Tools
+
+Vs Code -> .Net -> PostMan -> Git -> Node Js -> 
+
+
+cmd   ->  in project folder  -> dotnet new sln   -> dotnet new webapi -n name -controllers  ->
+      ->  dotnet sln add API
+
+Extensions	->   C# Dev Kit   ->   SQLite Viewer -> Material Icon Theme -> nuget Gallery
+            NuGet Gallery -> Microsoft.AspNetCore.OpenApi ->  Microsoft.EntityFrameworkCore.Design  ->
+      ->  Microsoft.EntityFrameworkCore.Sqlite
+
+
+EF -Core 
+
+
+Your C# class:
+
+public class Product
+{
+    public int Id { get; set; }
+    public required string Name { get; set; }
+    public decimal Price { get; set; }
+}
+
+EF Core looks at it and maps:
+
+C#                         Database
+
+
+Product       ────────→    Products table
+
+
+Id            ────────→    Id column
+Name          ────────→    Name column
+Price         ────────→    Price column
+
+Then when you add product data:
+
+Products
+┌────┬──────────┬────────┐
+│ Id │ Name     │ Price  │  ← EF Core helps create this
+├────┼──────────┼────────┤
+│ 1  │ iPhone   │ 80000  │  ← data
+│ 2  │ Laptop   │ 60000  │  ← data
+└────┴──────────┴────────┘
+
+So you don't have to manually create the table and columns with SQL in the normal EF Core workflow. 🎯
+
+One important correction
+
+EF Core doesn't automatically create/update the database just because you wrote the class.
+
+You normally use migrations:
+
+C# Entity
+    ↓
+EF Core
+    ↓
+Migration
+    ↓
+Database
+
+For example:
+
+dotnet ef migrations add InitialCreate
+
+then:
+
+dotnet ef database update
+
+That's what actually tells the database to create/update the tables.
+
+So you've now understood the main reason we're learning EF Core.
+
+
+🎯 So the big picture
+Without EF Core:
+C# class
+      ↓
+You manually write SQL
+      ↓
+Database table
+      ↓
+You manually write SQL
+      ↓
+Data
+With EF Core:
+C# Entity
+      ↓
+     EF Core
+      ↓
+Migration → Database table
+      ↓
+C# objects / DbContext
+      ↓
+     EF Core
+      ↓
+Database
+
+Section 4
+
+ We covered:
+
+1.React Router — navigating between pages in a SPA.
+2.Routes
+/ → Home
+/catalog → Catalog
+/catalog/:id → Product Details
+/about → About
+/contacts → Contact
+3.NavBar links using NavLink.
+4.Dynamic product details using useParams().
+5.Fetching the selected product from the API.
+6.MUI layout and styling for the Product Details page.
+7.Product information table.
+8.Quantity field and Add to basket button.
+9.Dark/light mode continues to work.
+✅ Section 4 COMPLETE
+
+Your Git status is the only thing we should handle before moving on.
+
+The instructor commits:
+
+end of section four
+
+So when you're ready, we'll make the Section 4 Git commit and push, then Section 4 is officially finished.
+
+
+Section 5
+✅ Section 5 progress
+
+Video 47 — Redux Introduction
+
+✅ Global state
+✅ Store
+✅ Slices
+✅ Actions / reducers
+✅ useSelector / useDispatch
+✅ Redux Toolkit overview
+
+Video 48 — Redux Core
+
+✅ Redux packages
+✅ counterReducer
+✅ Redux store
+✅ <Provider>
+✅ useSelector
+✅ Displayed data: 42
+
+Video 49 — Redux Actions
+
+✅ increment
+✅ decrement
+✅ useDispatch
+✅ Buttons
+✅ State updates correctly
+
+Video 50 — Action Creators & Payloads
+
+✅ increment(amount = 1)
+✅ decrement(amount = 1)
+✅ action.payload
+✅ increment(5)
+✅ Tested successfully
+
+Redux
+
+Suppose your application has a bug:
+
+42 → 43 → 44 → 999 ❌ → 1000
+
+You can go back through the actions and find which action caused the bad state.
+
+That's why Redux DevTools is so useful for debugging complex applications.
+
+And yes, buddy — you can also play through the recorded actions so you can watch 
+the state changes happen one after another. 🎬
+
+One small distinction: DevTools is primarily debugging/time-traveling the 
+recorded state; it doesn't permanently undo your application's database or backend data.
+ It's a development/debugging tool.
+
+
+ Video	Topic	Status
+51	Redux Toolkit	✅
+52	Redux DevTools	✅
+53	RTK Query intro	✅
+54	RTK Query setup	✅
+55	Fetch products	✅
+56	Fetch product details	✅
+57	Custom base query + fake delay	⏳
+58	Global loading indicator	⏳
+59	Dark mode Redux challenge	⏳
+60	Challenge solution + Section 5 commit	⏳
+
+
+
+🎬 Video 61 — What we learned
+
+The instructor summarizes the main things from Section 5:
+
+1. Redux
+
+Redux is used for global state management.
+It gives us a central store for application state.
+Components can read state and dispatch actions.
+
+2. React Redux
+We used:
+
+Provider
+useSelector
+useDispatch
+
+In our project, we created typed versions:
+
+useAppSelector()
+useAppDispatch()
+
+3. Redux Toolkit
+
+Instead of writing Redux boilerplate manually, we used:
+
+createSlice()
+configureStore()
+
+Our uiSlice is a good example:
+
+uiSlice
+ ├── isLoading
+ └── darkMode
+
+4. RTK Query
+
+We used RTK Query for API communication:
+
+React Component
+      ↓
+RTK Query
+      ↓
+API
+      ↓
+Redux cache
+      ↓
+Component
+
+It handles things like:
+
+Fetching data
+Loading state
+Errors
+Caching
+Avoiding unnecessary duplicate requests
+
+5. Redux DevTools
+
+We used Redux DevTools to inspect:
+
+Action
+State
+Diff
+Trace
+
+This helped us see exactly what happens when an action is dispatched.
+
+❓ Is Redux always necessary?
+
+The instructor explains that Redux isn't mandatory for every React application.
+
+For smaller applications, React's Context API and other approaches can be enough.
+
+Redux becomes useful when an application has more complicated shared state and you want things such as Redux Toolkit, middleware, RTK Query, and DevTools.
+
+🎯 Our Section 5 result
+
+We started with a simple Redux counter and eventually built:
+
+Redux
+  ↓
+Redux Toolkit
+  ↓
+RTK Query
+  ↓
+API caching
+  ↓
+Custom base query
+  ↓
+Global loading indicator
+  ↓
+Global dark mode + localStorage
+
+So Section 5 is now complete. ✅🔥

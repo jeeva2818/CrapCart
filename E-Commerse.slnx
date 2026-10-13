@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="CrapCart/CrapCart.csproj" />
+  <Project Path="Gateway.API/Gateway.API.csproj" />
+  <Project Path="Catalog.API/Catalog.API.csproj" />
+  <Project Path="Basket.API/Basket.API.csproj" />
+  <Project Path="Identity.API/Identity.API.csproj" />
+  <Project Path="Ordering.API/Ordering.API.csproj" />
+  <Project Path="Payments.API/Payments.API.csproj" />
+</Solution>

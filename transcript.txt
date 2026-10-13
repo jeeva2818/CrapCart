@@ -1,0 +1,2215 @@
+vid 85
+
+Okay, now that we've got the API side of things settled, let's now move on to the client side.
+
+And the first thing we'll do is we'll create a type, and we need to head back to the File Explorer
+
+view inside here to deal with our client application.
+
+So inside the client the source the app and the models folder.
+
+Let's first of all create a type for our basket.
+
+So I'll say new file and say baskets.
+
+Let's go across to postman.
+
+And we'll just go to our get basket method.
+
+And let's just copy the JSON we have inside here so that we can quickly and easily create a type that
+
+we need.
+
+And we'll just head over to Chrome and use that JSON to TS site we used before, and just paste in the
+
+basket JSON that we have and copy the type that it generates for us inside here and paste it into our
+
+baskets.
+
+So once again I'm just going to swap this for types because I kind of prefer them.
+
+And I'm going to swap that for export type basket equals double check what we have for this.
+
+And we've got a basket ID that's a string.
+
+And the items which is an item array.
+
+And they'll also swap this to type and say item equals.
+
+And just double check what we've got for our different properties inside here.
+
+And these all look fine to me.
+
+So next we're going to go across and add a new feature into our client side application.
+
+So inside the features I'm going to create a new file.
+
+And inside here I'm going to say basket.
+
+This is going to be the folder.
+
+So I'll say forward slash.
+
+And we're going to create the fetch request that we need first of all to go out and get things and update
+
+things on our API.
+
+So I'm going to call this basket API dot ts and press return.
+
+And inside this file we can start creating the code that we need so that we can use RTK query to go
+
+and get and update our basket.
+
+So I'll specify export const basket API equals create Creates API that we get from the second option
+
+here, the one with Redux toolkit, query, react, and then open parentheses, open curly brackets.
+
+And the first part is the reducer path.
+
+And I'll specify basket API here.
+
+The next part is the base query we're going to use.
+
+And we're going to use our base query with error handling.
+
+Now that we've set that up.
+
+And then we'll specify the endpoints.
+
+And in here we open parentheses say builder as the arguments.
+
+Then open up parentheses and curly brackets.
+
+And we can define our different endpoints.
+
+I'm going to have one for fetch baskets.
+
+And we'll use builder dot query.
+
+And this is going to return to us a basket.
+
+And it doesn't take any arguments.
+
+So we'll specify void open parentheses curly brackets.
+
+And then we can define our query which is pretty simple for this one just empty parentheses.
+
+And we're going to go to the basket endpoint.
+
+The next one we need is the add basket item.
+
+And this one will use builder.
+
+And we're going to use the other option here.
+
+This is a mutation.
+
+We're changing the states so not a query.
+
+This time we'll use mutation.
+
+And inside here we need to specify what we're going to return from this.
+
+We're going to get a basket back from our API.
+
+So we'll use basket inside here.
+
+And then we need to provide the parameters we're going to use for this.
+
+Now there's two parameters.
+
+There's the product ID and the quantity for this method.
+
+So inside curly brackets because we need to specify this inside an object we'll specify the product
+
+id which is a type of number.
+
+And the quantity which is also a type of number.
+
+And then to the right of the angle brackets we open up parentheses curly brackets.
+
+And then we can define our query.
+
+So slightly different this one because we do need to provide the parameters.
+
+So inside parentheses and then curly brackets will specify the product ID and the quantity.
+
+And then to the right of the parentheses we'll add the arrow.
+
+Open up more parentheses more curly brackets.
+
+And on the next line we can specify the URL.
+
+So slightly different approach to this one because it's not just a simple query.
+
+We need to send up parameters.
+
+And it's not going to be a Get request which is the default when we use a query.
+
+So we also need to specify the method that we're using inside here.
+
+So we need to give it the full options for using a query here.
+
+So we'll specify the URL as one of its properties and inside Backticks here because we need to send
+
+up our product ID and quantity as query string parameters, we'll use Backticks and say baskets and
+
+then question mark.
+
+And then product id equals dollar.
+
+And then we'll pass in the product ID and then we use an ampersand.
+
+And then we'll specify quantity.
+
+Equals.
+
+And then again use dollar curly brackets and specify quantity.
+
+Now this is an easy one to get wrong because there's a huge amount of opportunity to make typos inside
+
+here.
+
+So please do double check your work.
+
+Any tiny little typo will cause this not to work as you expect it, so please double check your work
+
+when using strings.
+
+I know I've mentioned it before, but I do see many, many, many questions in the Q&amp;A about simple
+
+typos as they are a very easy way to introduce problems into what we're doing here.
+
+And the method we're going to use is going to be a post which of course matches the endpoint on our
+
+API controller.
+
+We'll also add another method inside here to remove a basket item, and we'll specify builder and mutation
+
+again.
+
+And we don't get anything back from this method.
+
+So we'll specify void and then in curly brackets we need the products ID which is a number, and the
+
+quantity again which is a number.
+
+And to write the angle bracket parentheses curly brackets.
+
+And we'll add our query here very similar to the one we did above.
+
+We need the product ID and the quantity as the arguments inside this object we'll add the arrow open
+
+parentheses curly brackets, and then the URL we're going to specify here is going to be the same as
+
+this.
+
+So since I'm confident that I have this correct I'm also going to use that in list line to reduce the
+
+possibility of making typos.
+
+Or if I've made a typo in the one I've copied, I've doubled the opportunity to make typos.
+
+And then the method is going to be delete in this one, just like so.
+
+And then we will.
+
+Below this we will export const and we'll use our equals basket API.
+
+And just for now, we'll use the use Fetch basket query.
+
+We'll come back and add the other ones we need when we need them.
+
+But we're going to make use of this one early on and come back and talk about the mutation type of queries
+
+soon.
+
+So the next stop after our basket API we need to open up our store teams.
+
+So let's open this.
+
+And inside here just below the error API I'm going to add the basket API reducer path and to the right
+
+of the square brackets I'm going to say basket API dot reducer.
+
+And because this is an API type of Redux store thing, we need to add this to the middleware as well.
+
+So I'm just going to drop that down because I'm going to start to go off the edge of the screen.
+
+The more of these we add.
+
+And below this one I'll specify basket API dot middleware.
+
+Okay.
+
+So that's our store functionality set up.
+
+And the next thing we'll take a look at is creating our basket components.
+
+
+vid 85
+
+Okay.
+
+Our next task is to create the basket component.
+
+So let's go to let's close all this stuff down.
+
+And inside our basket folder let's create a new file and we'll call it basket page dot TSX.
+
+This is going to be a react component this time.
+
+So we'll use our snippet for the boilerplate the RFC.
+
+And this gives us our function that we used to return JSX.
+
+And we'll also update our route.
+
+So we'll go to routes TSX.
+
+And let's just copy the contact down in this case.
+
+And we'll specify basket as the path.
+
+And we'll use our basket page component so that we get taken to our new component.
+
+We're going to use this with our shopping cart icon that we have in the navbar.
+
+So our next stop is going to be the navbar dot TSX.
+
+And let's see where we've got our shopping cart icon.
+
+Then we're going to specify the icon button component to be a link that we get from React Router Dom.
+
+So I'll say component here equals.
+
+And then we're going to use the link component that we get from React Router Dom.
+
+And because it's a link, we need to give it the two property.
+
+And we'll just say in quotes forward slash baskets.
+
+And if we take a look at our browser, we'll head back to our application.
+
+And if we click on the shopping cart then we get taken to our basket page.
+
+Excellent.
+
+So let's head back to VS code and we'll go back to our basket page.
+
+And we'll start to configure what we need inside here.
+
+So we're going to go and get our basket from the API.
+
+We don't have anything in our client browser yet for a cookie.
+
+So we don't have a basket here.
+
+What we did in postman doesn't come across to what we're doing inside our browser, but we will make
+
+use of the use fetch basket query.
+
+So I'll say const open curly brackets and then equals use fetch basket query.
+
+And we will have inside here the data.
+
+And we'll also make use of the Isloading property.
+
+We'll check to see if we are is loading.
+
+And we will return a div saying loading baskets.
+
+Or in fact let's make that typography so that dark mode and light mode operate the same way as it changes
+
+the text color.
+
+And I'll just add that import from material and just add dot dot dot.
+
+After that, we're going to have our loading indicator anyway that we centralized earlier on.
+
+But this is just in addition to say what's going on as it's going on.
+
+And below this we'll say if no data or not data, then we will return.
+
+And again we'll use typography here and we'll give this one a variant of H3.
+
+And we'll just specify your basket is empty.
+
+And what we'll return in the short term is we'll just have a data and then the basket ID.
+
+So when we do have a basket we'll see something.
+
+But for now what we'd expect to see is your basket is empty.
+
+So great.
+
+That's what we're looking for right now.
+
+And what we'll take a look at next is inside our catalog.
+
+We've got this add to cart button.
+
+We'll add the functionality so that we can indeed add an item into our basket.
+
+And we'll take a look at that next.
+
+vid 86
+
+
+Okay, so time to look at this.
+
+Add to cart button and well we'll make it function how you would probably expect it's going to function.
+
+It's going to add a product into our basket.
+
+So back to the code and we'll go back first of all to our basket API because we do need to export the
+
+mutation.
+
+So if we add a comma and then say use add basket item mutation, this is what we're going to use to
+
+update our basket of course.
+
+So where we're going to use this is in our product card.
+
+So let's next open up the product card where we have the button the add to cart button.
+
+And just at the top of this component let's bring in the use Add basket item mutation.
+
+So to use this the way that we use these mutation hooks is we say const.
+
+Then open up square brackets.
+
+And then we give our function a name.
+
+This can be anything we want but I'm going to call it add basket item.
+
+Just a name that makes sense to us.
+
+And a second parameter inside.
+
+Here we do this.
+
+Inside an object we have access to is loading.
+
+And then we can use the use add basket item mutation inside here.
+
+So this should be available.
+
+And if I do is then we can see we've got all of the different options.
+
+If there's an error we can use is error although we're handling that centrally.
+
+So the only one that we're really interested in is the is loading option.
+
+So we can do something with our button whilst loading is taking place.
+
+And then we can head down to our button itself.
+
+And we can give this the onclick action.
+
+So I'll say onclick.
+
+And we'll need to do this in parentheses because we do need to pass this an argument.
+
+And we'll add the arrow.
+
+And then we'll use our ad basket item method and inside parentheses.
+
+This takes an argument, but it's an object.
+
+So we can see the argument there.
+
+We need to specify the product id and the quantity inside curly brackets, so that this gets passed
+
+as an object to our query.
+
+So I'll open up curly brackets and we'll specify the product ID colon is going to be the product id.id
+
+inside here.
+
+And we're also going to specify the quantity.
+
+And because this is a button inside our product card they can only add one item at any one time.
+
+So we'll specify the quantity is one there.
+
+And let's just move things down because I'm going off the edge.
+
+So let's tidy things up a little inside here okay.
+
+That will be fine.
+
+Now what do we do for loading in this button.
+
+Well typically most component frameworks do give us a loading option or a loading property.
+
+And we do see things like onload and stuff like that here, but we don't actually have a flag that says
+
+is loading or something where we can set this to be true.
+
+So I'm just going to use disabled inside here.
+
+And I'm effectively going to disable the button if we are loading and use that approach.
+
+By the way, if you did want a loading button, then let's just go to the moon icon and the docs.
+
+And for reasons that I'm not entirely sure about, let's go to material UI docs.
+
+It's been quite some time.
+
+That's this loading button, because it does exist in material UI, but it's been part of the labs of
+
+material UI, which is kind of experimental stuff that hasn't made it into the main component library
+
+functionality.
+
+And if we take a look at Alli in the experimental APIs, They are not.
+
+In fact, I'm going to have to search for this because I do not know where it will be in these docs.
+
+But if we take a look at loading and then loading button, then we can see that this is coming from
+
+my lab.
+
+So that's a separate package we would need to install in order to make use of the functionality provided
+
+in the lab options.
+
+But what this does give us, if we were to use this is a loading property and it will provide a spinner
+
+whilst loading is going on.
+
+But because we've already got loading displaying on the nav bar, I'm going to say we don't really need
+
+that inside here, and I'm going to use the disabled option to simply disable the button to prevent
+
+the user from getting click happy and trying to continuously add products, whilst we're trying to add
+
+one that I've just clicked on the button for.
+
+So if we go and take a look and see how we're doing with this now I'm going to open up the Redux dev
+
+tools because we're going to impact Redux.
+
+I'll just check the console, make sure that's clean, and I'm just going to open up the Redux dev tools.
+
+And is there a clear button I can use inside here?
+
+And I don't think we can just clear this, because if we hit the reset button, that just resets to
+
+the state we created the store with.
+
+I don't think this has the desired effect.
+
+Yeah.
+
+It just takes us back to the initial state.
+
+Okay.
+
+So I'll just refresh the page to get it as clean as I can, and then we'll see what happens.
+
+When we do click on the add product or Add to Cart button.
+
+I'm expecting this not to work.
+
+So I'm going to click the button.
+
+We see the loading.
+
+We see the button was disabled and we see the let's see the basket API execute mutation pending.
+
+And that's this one.
+
+And we've got our start and stop loading.
+
+And then we've got the fulfilled option.
+
+And if we take a look inside here Then consider me surprised.
+
+But it looks like this could have actually worked.
+
+I'm just going to check the state because I'm flummoxed as to how that would have worked.
+
+And if I take a look at the basket API, do we have a basket inside here?
+
+We do not, but I didn't really see an error.
+
+Let's check the network tab and see if there's anything that we can see inside here.
+
+So we've got the 201 created.
+
+And if we take a look at the headers do we send the cookie up or we've got the cookie back.
+
+Oh okay I see what's going on here.
+
+So the server sent us back a cookie.
+
+But we haven't needed to send up the cookie yet to our server.
+
+So what I think will happen and where we'll see things not working as they should is if I go to the
+
+shopping cart icon, then we see our basket is empty.
+
+And the reason for that is that if we take a look at this next request, then we haven't configured
+
+our application yet to send up a cookie, because if we do look at the request headers, then we do
+
+not see the cookie inside here like we did in postman.
+
+So there's two things we need to do to get this functionality to work, so that we can go and get our
+
+baskets from the API server.
+
+So let's go back to the code and just make these two small changes.
+
+First of all, there's something we need to do in our program class for our cause configuration.
+
+In order to send up cookies we need to allow credentials inside our cause configuration inside the API.
+
+So inside the program class we need this allow credentials that allows our browser to send up the cookie.
+
+And because it's an API change, I do not trust hot reload.
+
+So I'm just going to use control R.
+
+And sometimes I'm asked hey Neal, why do you keep using hot reload?
+
+You complain about it all the time.
+
+It never does or never seems to do what you want it to do.
+
+Why use Netwatch?
+
+It's just hope.
+
+Really hope.
+
+One day I'm sure that's going to work as I expect it to, and I don't want to miss out when that day
+
+comes.
+
+So I'll just continue to use Netwatch, but really just double check every single time.
+
+So that's the API side of things.
+
+We also need to do something on our client side, and we're going to do that in our base query, which
+
+I put in the file base API inside our base query with error handling.
+
+We're going to add another property here.
+
+And we're going to specify credentials and set that to include which means we include the cookie along
+
+with each request.
+
+Sometimes I wish they'd changed that to allow cookies, but it's always been this way.
+
+So that's just what we need to specify to get our cookies sent up.
+
+What this should mean.
+
+If I go back to the browser and take a look and refresh the page.
+
+This time we still didn't get anything from our API and that's going to need some investigation.
+
+So I'm just going to refresh again, see what I sent out for the fetch basket request.
+
+And where is the basket request.
+
+It's at the bottom here and it's saying no content.
+
+But did I send up the cookie in the headers and still no cookie.
+
+In fact, I think we're going to have to go back to our products, because if we do take a look at application
+
+and cookies, because we didn't have the allow credentials enabled when we initially added a product,
+
+that means we don't have a basket.
+
+We'll never be able to get that basket.
+
+It's just going to sit in our database and nothing's going to happen to it.
+
+It's fine.
+
+It's just our development database.
+
+But what does need to happen is we need that cookie in this cookies area.
+
+So we're only going to get that set once that allow credentials was enabled.
+
+So back to the catalog and let's just add a product to the cart.
+
+And what we do see now is we've got our basket ID.
+
+So now if we go to the shopping cart icon I've still got basket is empty.
+
+But what we get with Redux Toolkit query is we do get caching.
+
+It is something we need to think about because I went to this page and I've effectively made the same
+
+exact API query, then it's given us our cached result.
+
+So I will need to refresh the page at this point.
+
+And what we see now is our basket ID inside there.
+
+Don't worry about caching.
+
+We do have tricks up our sleeve we can use to handle that kind of situation that we will take a look
+
+at.
+
+But first of all, I just want to make sure we display our basket on our basket page and deal with that
+
+side of things first.
+
+And our next step is to make our basket page look more like we would expect it to in an e-commerce store,
+
+and we'll take a look at that next.
+
+
+vid 87
+
+
+Okay, so we've confirmed that we can get our basket back from our API.
+
+And let's just double check the Redux dev tools again.
+
+Actually, thinking about it, make sure that our component states or our global state is what we'd
+
+expect it to be.
+
+So I'll head back to Redux Dev Tools, and if we take a look and just click on the last request, we
+
+can take a look at our basket API inside the queries, inside the fetch baskets and inside the data.
+
+Then we can see that we've got our basket ID, and we've got the items inside that basket that we can
+
+use to display the contents of our basket on this page.
+
+Perfect.
+
+So now we've confirmed that let's go back to VS code and start thinking about styling our basket page.
+
+And I'll close the others inside here.
+
+So we're going to display our basket items in a grid.
+
+So I'll remove what we currently have.
+
+In the return statement I'll open left angle brackets and then I'll specify grid two.
+
+We need for this And we'll give the grid to a container property and we'll give it spacing equal to
+
+two.
+
+In this case.
+
+And then below our grid two we add another grid two.
+
+And we'll give this a size.
+
+And this is going to take up two thirds of the available space.
+
+So we'll give it a size of eight.
+
+And inside here we're going to loop over our basket items.
+
+So we'll specify data I dot items and then we'll use the map function.
+
+And open parentheses will specify item at the arrow.
+
+Open parentheses.
+
+And then each item in here is going to effectively have its own basket item.
+
+So I'll specify basket item which is a component we'll create soon but we don't have yet.
+
+And we're going to pass down to this.
+
+And I'll just call it item item.
+
+And we'll give it a key equal to item dot product ID and we'll make it self-closing.
+
+So we just need to create the list component.
+
+And inside the basket folder I'll say new file.
+
+And we'll call this basket item dot TSX.
+
+And we'll use RFC to create the boilerplate.
+
+And we'll populate what we need inside this component.
+
+So first of all we're passing down our item our basket item to this component.
+
+We need to add some props to type for props inside here.
+
+And we'll say type props equals open curly brackets.
+
+And we'll say item is of type.
+
+And what did we call the basket item in our type.
+
+We just called it item in fact okay.
+
+So this is going to be a type of item okay.
+
+And then we'll specify and destructure the props inside here.
+
+So I'll say item and props.
+
+And let's populate this.
+
+Now we've got a bunch of material by components inside here for the styling.
+
+So it's going to be a bit of typing that we need to do here to lay out our content in our page.
+
+But first of all, let's just bring in the import for the basket item so that we can check things as
+
+we go along inside our basket page and take a look at what we're doing for the basket item.
+
+So we'll put each basket item in a paper component, and we'll give the paper an SE property and open
+
+double curly brackets.
+
+And we'll give each basket item a height of 140.
+
+We'll give it a border radius of three so that we can round the corners.
+
+We'll use Display Flex for the content inside.
+
+We'll use justify content and say space between and align items of center and margin bottom of two between
+
+each basket item and inside the paper.
+
+Then let's give some space inside here we'll be using an outer box to control the styling of this component
+
+or what's inside here.
+
+And we'll use Display Flex again.
+
+And we'll say align items and make that center.
+
+Inside this box we'll go another box that's really just going to contain the product image.
+
+So I'll just expand this.
+
+And inside the right angle bracket there I'll specify the component for this one to be image.
+
+Just a normal HTML image tag.
+
+We'll specify the source to be the item dot picture URL.
+
+We'll give it an alt tag equal to item again of well item dot name in this case.
+
+And then we'll use the SE property to give our image a bit of styling.
+
+So we want the width here to be 100, the height to be 100 as well.
+
+We'll just go for square images.
+
+But we'll use the object fit CSS property.
+
+So even if it's not a square image, then it's going to be a square image and it will cover 100 by 100.
+
+In our component we'll also use a border radius here of and we'll just put four pixels inside here.
+
+And we'll have margin rights.
+
+And we'll set that to eight.
+
+And we'll have margin left which I could have used.
+
+Mr..
+
+I guess as four.
+
+In fact, we can use margin.
+
+Right.
+
+Or we can shorthand that to Mr..
+
+I'll just use Mr..
+
+There and let's see, I've got the closing tag for the box here for the image, but actually, because
+
+it's an image, we don't need a closing tag layer.
+
+We can just make this self-closing by using the forward slash there.
+
+So below this box we'll need another box.
+
+And we'll give this display of flex.
+
+We'll have a flex direction of column.
+
+And we'll have the gap equal to one.
+
+And in fact, let's just check our progress and see how we're doing.
+
+So we've got our paper with the item image that looks okay and we've got our little rounded corners.
+
+And over here on the left hand side we're going to have our basket items.
+
+And on the right hand side is going to go our order summary in this section.
+
+So we'll get the totals and things like that on the right hand side.
+
+So inside this box then we'll first of all have typography.
+
+And we'll give it a variance of H6.
+
+And we'll specify the item name inside here.
+
+And this just makes sure this is lined up correctly.
+
+Sure that's fine.
+
+And then below this typography we'll have another box.
+
+And we'll use Display Flex once again.
+
+And we'll use the align items of center.
+
+And we'll use gap equal to three.
+
+And then we'll have a couple of typography properties inside here to display the price and the quantity.
+
+So I'll bring that down and give that an SE property.
+
+And we'll just use font size and set this to 1.1 REM.
+
+And inside this one we'll display our basket price here.
+
+And we still don't have a helper function for this.
+
+But I'll just specify the item dot price and divide it by 100.
+
+And then we'll use the two fixed and specify two.
+
+And then to the right of the curly brackets we'll use x and then item dot quantity.
+
+And then let's just copy this one down for convenience.
+
+And this one's going to be the subtotal if you like of the order total of the quantity times the price
+
+here.
+
+So we'll after the divide by 100 we'll multiply it by item dot Quantity.
+
+Let's add a space there and we don't need the x item quantity.
+
+So if we go take a look then we can see that we've got our price of the item times one.
+
+And that gives us the price there.
+
+And let's give the second one a bit of color in the typography.
+
+And I'll just say color equals primary.
+
+And below this box where we've got the pricing information we're going to add a grid or grid two in
+
+this case.
+
+And we'll give it the container and we'll give it spacing equal to one.
+
+And we'll have align items and center.
+
+And we'll have some buttons inside here so that the user can increase the quantity or decrease the quantity
+
+or remove the item.
+
+So we'll have a button.
+
+In fact we'll make it an icon button because it's just going to have an icon inside it and inside the
+
+icon button we'll have the remove icon, which we get from Mui icons material, and we'll give the icon
+
+button a color, and we'll set this one to error so it's red.
+
+We'll give it a size equal to small, and we'll give it the SE property and say border colon one and
+
+border radius of one.
+
+And we'll give it min width property of zero.
+
+And let's just see how that's looking okay.
+
+That's fine.
+
+That's what we're looking for here a little button we can click on to minus the quantity or reduce the
+
+quantity.
+
+We'll have another icon button below this to add.
+
+So I'll change remove and say add for this one which we get from Material Icons.
+
+And the color for this one will set to success.
+
+And in between these two buttons we'll will add typography, and we'll give this a variance equal to
+
+H6.
+
+And inside here can go the item dot quantity.
+
+And if we take a look great we can see the number inside there.
+
+And the other thing that I'd like to add to our basket items is to have an X on the top right here,
+
+so that we can remove the entire item from a basket.
+
+Even if there's ten of these, we can click one button to remove the whole thing from our basket as
+
+well.
+
+So inside here, below the or just above the paper we'll have another button.
+
+So I'll just add the or the icon button I should say another icon button here.
+
+And let's just use the same properties here.
+
+I'll just copy this and paste it in here.
+
+So small icon button with the same SE properties.
+
+And we'll make this, or we'll give this a color equal to error as well, because it's going to be for
+
+removing.
+
+And in this one we'll use the close icon.
+
+And we'll also give this an additional property.
+
+And because we're inside a flex container at this point we can use align Self and set this to start
+
+so that it should appear in the top right of this as well.
+
+So we'll be able to click this button to remove the icons.
+
+And maybe we should give this a bit of margin on the right and the top just to move it away from the
+
+edge there.
+
+So let's do that as well.
+
+And we're getting quite busy in this property.
+
+So let's just rearrange things slightly so I don't go too far off the edge of the screen, which is
+
+always quite difficult when dealing with significant components inside a component.
+
+And we'll just give it margin rights of one and margin top of one.
+
+And I just need a comma there.
+
+And let's go take a look.
+
+And sure that's a bit more like it.
+
+So now we've got our basket items.
+
+Marvelous.
+
+And supposing I go back to the catalog and I pick a different product and I add let's add a hat to the
+
+cart.
+
+That should have worked.
+
+No problem.
+
+And if I go back to the shopping cart, where's my hat?
+
+It doesn't exist inside the basket and that's no good.
+
+But what's going on here is react query is doing its job and caching things, because in order to go
+
+and get the basket, we've made the same request to our API, but it's not showing up here.
+
+We will get the new item if I refresh the page and we can see it inside there.
+
+But what I would like to happen, of course, is when I do add something new to the basket and then
+
+I go to look at the basket.
+
+I would like to see it on this page without needing to refresh.
+
+So we're going to take a look at how we deal with that using react query.
+
+Next.
+
+
+vid 88
+
+
+Okay when it comes to react query, what we have here is caching.
+
+So when I go back to my catalog, as long as I haven't refreshed my page, I should go back and get
+
+the items instantly.
+
+And if I go back to the baskets, I don't see any loading.
+
+I just instantly get the items in the basket and if I go back to catalog, no loading caching.
+
+It's brilliant.
+
+It makes our application seem really responsive and really fast.
+
+Where caching becomes annoying is when we add something where we've made a change to our state, we
+
+go back to our cart and then we don't see it inside here.
+
+So what we really need to do here, and there's a few techniques to deal with this.
+
+And I'm going to demonstrate the simple one first of all, and we'll need to do this at various points
+
+in our application.
+
+So please don't think I'm only going to demonstrate one way of doing this.
+
+But for this circumstance what I'm going to demonstrate is invalidating the cache.
+
+So we know when we make a change to our basket that we don't want to retrieve the basket from cache
+
+the next time we need to go and get it.
+
+And that's what we'll aim to achieve here.
+
+So when I do go back to the catalogue and I add something else and then I go back to the shopping cart,
+
+effectively we will see loading after we've taken this action, because we have invalidated this cache.
+
+And the basket component will go out or react query will go out back to the API and it will get the
+
+updated basket.
+
+Still not ideal and we can do better.
+
+But I just want to show a simple example first of all.
+
+And then we'll look at other options as we build our application performance optimization.
+
+Well it's kind of performance.
+
+Well caching is definitely performance optimization.
+
+But we don't need to do everything straight away.
+
+And I'm just going to make sure we've got the functionality and then we can come back and make improvements
+
+later.
+
+But I want to show you the simple option first, because when it comes to mutating states and then mutating
+
+it inside our store, slightly more tricky.
+
+Not impossible, of course, but I want to show you the simple option first.
+
+So let's go back to our code and we're going to head over to our basket API on the client.
+
+And what we have here is our ad basket item method.
+
+Now this is the one that we're using at the moment.
+
+So I'll just focus on this.
+
+And the goal of this is when we make this query then we need to tell react query that that cache is
+
+now invalidated for this query.
+
+So the way that we achieve that is with a tag system inside our create API.
+
+First of all, at the top level, just below the base query we're going to specify tag types.
+
+And this is for TypeScript.
+
+So inside square brackets we're going to specify a tag type of basket.
+
+This is what is available now in this code for this create API.
+
+And then after our query inside the fetch basket method we'll add a comma and we'll say that this query
+
+provides tags.
+
+And inside here we can specify our basket.
+
+So the next step is after we've added an item to our baskets is to invalidate anything that's using
+
+this tag, this basket tag, and the way that we approach that, let's add a comma after the query in
+
+the add basket item.
+
+And we're going to use the add query started method.
+
+And I didn't want to use that version.
+
+So I'm just going to remove and repeat that again and use this version that doesn't populate anything.
+
+And this is going to be an async method.
+
+And we'll open parentheses.
+
+Now this on query started takes two arguments here.
+
+It takes an argument for parameters which we don't need to pass.
+
+And in the second argument then this gives us access to our store feature or one of the store features
+
+which is dispatch.
+
+So we'll specify dispatch inside here.
+
+And also we need to specify query fulfilled.
+
+And then we'll add the arrow and open curly brackets.
+
+So inside here we'll add a try catch block.
+
+And inside the try block we will say await query fulfilled and execute this function.
+
+And we don't need to execute this.
+
+We just close it off with a semicolon.
+
+And then we can use the dispatch because we're going to update our store.
+
+So what we're going to dispatch is we're going to dispatch a the baskets API.
+
+And then we're going to use the util.
+
+And then there's a method inside here where we can invalidate tax.
+
+And we're going to specify in square brackets in quotes baskets.
+
+And we will just console dot log any error we get from here.
+
+And the only reason I've put this in a try catch block is we use the await with the query fulfilled.
+
+Because this does return a promise to us.
+
+So we have to await this.
+
+And then once that has completed we can then dispatch this.
+
+So that's how we invalidate the cache.
+
+We provide it with some tag types so that we can easily use this type inside our code here.
+
+We then provide a tag for the query that is being cached.
+
+That's our fetch basket.
+
+This is the one that's being cached.
+
+And when we want to invalidate that cache, then we need to dispatch an action using a utility called
+
+invalidate tags on the basket API and specify which tag it is.
+
+We wish to invalidate what this means.
+
+If we go back to our browser, I'll just re.
+
+Well, let's go back to the catalog.
+
+First of all, I'll just refresh the page and let's pick a different product to add.
+
+I'll, I'll pick this react board and add to carts.
+
+If I go to the shopping cart, we'll see the loading and we see the new item added inside there.
+
+So let's go and pick a different product from the catalog.
+
+No loading going on there.
+
+Let's pick some boots down here and add these to the cart.
+
+Again we see the loading as we're being added.
+
+And if I go back to the shopping cart, we see the loading and we see the correct item being added there.
+
+Not perfect because we've lost our ability to cache when we add something to our basket and we have
+
+to go out to the API to get it.
+
+I'm sure you're thinking, can't we just add something to the basket so that we get it directly from
+
+the store, rather than going out to our API again?
+
+Sure we can, and we'll do that a bit later, but for now, I just wanted to demonstrate the simplest
+
+approach to get the correct working functionality of invalidating the cache, even though that does
+
+mean us going out to the API.
+
+So we're focusing on functionality first.
+
+We'll take a look at optimizations later.
+
+So now we've got a number of products in our carts.
+
+And one thing I didn't check actually was to make sure that the quantity goes up.
+
+So let's just pick on the.
+
+Net core Superbad's go back to our catalog.
+
+And this one here will add this one to the cart.
+
+And if we go to our shopping cart again we should see that the quantity has increased there.
+
+That's fine.
+
+We don't have any other functionality inside here yet, so that's no problem.
+
+So now we've got a number of items in our shopping carts or baskets, but it doesn't match what we see
+
+at the top here.
+
+So next we're going to take a look at affecting that in our application.
+
+
+
+vid 89  
+
+
+
+Okay, now let's take a look at updating the nav bar with the number of items in our shopping cart or
+
+basket.
+
+And let's head back to VS code to do that.
+
+And we will open up our nav bar.
+
+And let's close the others down for the time being to focus on what we're looking at.
+
+And I closed everything down there and we'll focus on the nav bar inside here.
+
+Quite a busy component, and we want to get hold of our basket from our Redux store.
+
+Now, if we go and take a look at our store and open up the Redux dev tools, then our baskets, if
+
+I go to the Redux tools and just go to the latest element and click on States and let's take a look
+
+at our basket.
+
+It's in the queries, it's in the fetch baskets.
+
+It's in the data.
+
+And inside here we've got our items that we can query.
+
+Now that's kind of buried inside here.
+
+So the way that we get this, we don't use a use selector or anything to get hold of this.
+
+What we actually do, which may seem a little bit weird, but please remember that react query is caching
+
+our data, so we're not going to go out and actually fetch the basket unless we have to.
+
+At this point.
+
+So we're going to use const and open curly brackets.
+
+We're going to use to get hold of our basket the fetch basket query.
+
+And like I say remember that we've got caching going on here.
+
+So this is not going to make a request to the API unless it does not have the basket in our store.
+
+So we'll specify data and let's give it a name of basket that we can use inside this component.
+
+So all we really need from this data is the item count.
+
+So I'll create a const called item count.
+
+And we're going to get that from our basket dot items.
+
+And effectively we just need to count up how many items there are including the quantities.
+
+So if I have two boards plus one hat then that would be three of course.
+
+So we need to get our array of items to return a single number that calculates the number of items added
+
+together, including their quantities.
+
+Now, the way we do that in or with an array is to use the reduce function.
+
+And this effectively reduces an array into a single value.
+
+The way we're going to use it now we give this or we open parentheses and we give this a callback function.
+
+And the first argument is the previous value.
+
+And that's going to be the current count of how many items there are.
+
+And then we give it the current value which is going to be the item.
+
+And then we execute a callback function on each item in the array.
+
+So for this example, let's say the first argument the previous value is going to be the sum, the number
+
+we're currently up to and the current value.
+
+What we're executing the callback function on is going to be the item.
+
+And then to the right of the parentheses we'll specify some plus item dot quantity.
+
+And then we give it an initial value which is going to start at zero.
+
+And just to ensure the item count always has a value because we've got the optional chaining there,
+
+we need to give this an alternative just in case there are no basket items.
+
+So we'll add an Or condition and set this to zero.
+
+And then we can make use of our item count inside our navbar.
+
+And where we've got our badge content equals four.
+
+We can swap this now for the item count.
+
+And if we go and take a look at our progress, then what we should find is that we have the correct
+
+number of items listed up here.
+
+I've got six as my count.
+
+And that's two, three, four, five, six, which is correct.
+
+Great.
+
+So let's go back to our catalog and let's add another item to our cart.
+
+And let's just add another board.
+
+So I'll add this to the cart.
+
+But what we see there is we see loading twice.
+
+And then our shopping cart gets updated.
+
+And it's not as responsive as I'd like it to be.
+
+So I did mention we were going to take a look at a better way of mutating state, because I would like
+
+that to happen instantly when I click and add to cart button.
+
+I would like this to update straight away, and what we're going to take a look at is optimistic updating.
+
+So we make the updates to the component.
+
+We'll see that happening.
+
+And if we're successful that update stays in place.
+
+But if that update fails for whatever reason then we undo the changes.
+
+And in this case it would go back to 6 or 7, in this case what it currently is.
+
+So let's take a look at the slightly more complex way of updating our state in our global store for
+
+the baskets.
+
+And we're going to need to do a couple of things here.
+
+So let's go to the baskets API.
+
+First of all.
+
+And what we're going to adjust is this on query started method this time, because we do need to know
+
+the product and the quantity in order to achieve this.
+
+So I'll remove the underscore and replace that with product and not product ID but the quantity.
+
+And because I need access to the product in order to update the cart, that means the product ID is
+
+not sufficient anymore.
+
+For the ad basket item method.
+
+We're going to have to pass the full product in to do what we need to do here.
+
+So instead of product ID being a number, I'm going to specify product of type product inside here.
+
+And then for the query this also changes to products.
+
+And instead of product ID there we can use the product.id for the query string parameter.
+
+Before we get to the try block let's add some extra code.
+
+Now we'll create a const and we'll call it patch results And we're going to equal dispatch because we're
+
+going to update our store at this point.
+
+Open parentheses.
+
+And I'll just do this on the next line because it gets a little bit busy.
+
+We're going to use our basket API dot util.
+
+And we're going to use the update query data method this time.
+
+And the method we want to use is the fetch basket.
+
+And TypeScript is aware of the methods available inside our components.
+
+The next parameter is the arguments.
+
+And this is just going to be undefined.
+
+We don't need any arguments here.
+
+And then the next parameter is the recipe.
+
+So I'm going to specify as a name for this recipe draft and add an arrow and open curly brackets.
+
+So first of all we need to get hold of the existing item if it exists.
+
+Because if we're adding an item to our cart, it may already be in our cart.
+
+And we just want to increase the quantity or we need to add a new item.
+
+So we'll say const existing item equals draft dot items dot find.
+
+And we'll look for the item and look for it by its product ID and see if that's equal to the product
+
+ID we're passing in as a parameter there.
+
+If we do have the existing item then we can specify existing item dot quantity plus equals quantity.
+
+And then we'll add the else condition.
+
+And we'll say draft dot items dot push.
+
+And then we need to create effectively a new basket item.
+
+And the easiest way probably is to go back to our basket model.
+
+So open the basket TS because I would like to say new basket item.
+
+but we can't do that with a type.
+
+We can't create a new instance of something just using a type.
+
+We would need a class for that.
+
+So I'm actually going to swap what we currently have here, which is a type, and I'm going to swap
+
+it for a class that we can use a constructor with.
+
+So instead of type I'll say class of item, we'll remove the equals sign and just have an opening curly
+
+brackets.
+
+And inside our class I'm going to create a constructor.
+
+So I'll use the constructor.
+
+And I'm going to specify the products as one of its arguments.
+
+When we create a new basket item I'll say products of type products, and we'll have the quantity.
+
+And that's going to be a number.
+
+And I'll open curly brackets here.
+
+And then the way that we assign properties here is we'll say list dot product ID is equal to product.id.
+
+And then we just go through each property in here and do the same thing.
+
+So product name for the second one for this name, then we'll have Listprice equals products dot price.
+
+And we'll have this dot picture URL equals product dot picture URL.
+
+And say this dot brand equals products dot brand.
+
+And this dot type equals product dot type.
+
+And finally this dot quantity equals quantity that we're passing in as an argument.
+
+And because we're initializing these in the constructor, all the warnings we had earlier went away.
+
+And we can use the item like I say as a type.
+
+So we don't need to change any of our other code.
+
+But the advantage of this is that I can go back to the basket API now, and I want to push a new basket
+
+item into the draft of the items.
+
+And I can simply say that we want a new basket or a new item we get from API models Basket and then
+
+open parentheses.
+
+And we can just pass in the products and the quantity as parameters there.
+
+So because we're dispatching at this level we're using dispatch here after the query has started.
+
+So this is before we've gone out to our API.
+
+We're simply updating our state inside here.
+
+So we're going to see our user interface update straight away.
+
+Then we'll use the query fulfilled and we'll remove the dispatch inside here.
+
+We're doing that above now.
+
+But if we do get an error then we need to undo what we're doing inside here inside this dispatch.
+
+And that's why we created a variable for patch results.
+
+Because we can use our patch results and then undo which will undo any changes if we do get an error
+
+inside here.
+
+And because we've made a change to the method we're using here, instead of taking the product ID,
+
+we're taking the product we need to go where we've used the ad basket item.
+
+So let's go back to our product cards.
+
+And inside here we've got an error.
+
+Of course we need to pass the product instead of the product ID.
+
+So let's remove the ID from that.
+
+And because the name is the same we can actually just shorthand this as well.
+
+If both sides of this colon are the same then we don't need to specify product colon product.
+
+We can just specify product there.
+
+So now we should be able to go and test this functionality.
+
+What I would expect to see is when I do try and add a product, I'd expect to see this update instantly
+
+loading take place.
+
+And then I would also expect to see the shopping cart be updated here in the nav bar.
+
+And also when we click on this to go to the cart.
+
+So let's give that a go.
+
+I'll just click on this Angular Speedster boards and add this to cart.
+
+We see the loading and I wasn't paying attention to the navbar.
+
+So let's give that another go.
+
+Add to cart and we see that update instantly before loading has finished.
+
+What we should also find if we click on the shopping cart is that we don't do any loading.
+
+We should see the product inside here.
+
+I can see this.
+
+I've got two of these.
+
+If I go back to the catalog and I add the same product in again, add to cart, go back to the shopping
+
+cart.
+
+I should see that this is now updated to three.
+
+So that's an optimistic update.
+
+And what happens if we return a bad request from our API server.
+
+And just to demonstrate that just so we can see the result of it rolling back to its previous value,
+
+if I go to the basket controller and let's find the add basket item and let's see, I'll just return
+
+from here early on a bad request and just say just testing, just as a very quick example.
+
+And take a look at my API controller and see if it needs reloading.
+
+It says hot reload succeeded.
+
+So let's give that a go, as I don't really want to restart the API if I don't have to for this quick
+
+demo, but I will just refresh the browser.
+
+I believe that was required when I was testing this.
+
+And let's see.
+
+So I'm going to try and add a product to the cart.
+
+We'll keep an eye on the nav bar and we can see that it did go up to 11.
+
+But then it removed that change and went back to ten.
+
+And we see the toast.
+
+I'll try that again.
+
+Go up to 11.
+
+Back down to ten.
+
+We see the toast.
+
+Perfect.
+
+So let's go back to our API.
+
+Let's just remove that bad request that we added to the basket controller to put things back to normal
+
+and great.
+
+So now we've got that functionality in place.
+
+But it's not perfect yet.
+
+We will need to come back and make another adjustment.
+
+If we don't have a shopping cart, then that will not work for the first item that we add.
+
+I'll deal with that soon.
+
+So if you do empty out your basket, or you clear your cookie and you're adding your first product,
+
+that's not going to work just yet.
+
+We'll sort it out soon, but next we're going to deal with removing items from the cart because it's
+
+getting quite full.
+
+I've got ten items in there now, so we'll look at that next.
+
+
+
+vid 90
+
+
+Okay, now it's time to take a look at how we can remove items from the cart because we want these buttons
+
+to work.
+
+Of course, we want to be able to click this button to remove the item completely, no matter what the
+
+quantity from the cart, and we'll focus on that next.
+
+So back to VS code then.
+
+And first of all, let's go back to our basket API.
+
+So we can deal with the query that we're making.
+
+And we're going to need to do similar to what we did for the add item.
+
+Of course we want our user interface to update, preferably immediately when they click on a minus button
+
+to remove a quantity, or the X button to click item from the cart.
+
+So let's go take a look at what we need to do in the remove basket item method.
+
+Once again, we're going to need to make use of that on query started method.
+
+And we'll add the colon and we'll say async and then open parentheses open curly brackets.
+
+And for this one the arguments we need inside curly brackets are the product ID and the quantity.
+
+That's the information we need to be able to remove an item from the basket.
+
+And then in a comma and more curly brackets.
+
+We need access to dispatch so that we can dispatch the action, and then we'll use the query fulfilled
+
+once again.
+
+And then just to the right of the parentheses we'll add the arrow open curly brackets.
+
+So once again we'll create a variable called patch results.
+
+And we'll use dispatch open parentheses.
+
+And then inside the dispatch method we can make use of the basket API and the util.
+
+And then we can use the update query data.
+
+And we will use the fetch basket method which contains our basket items in our store.
+
+And then we'll use the undefined as the second parameter.
+
+And then as the third we use the draft.
+
+So we'll specify draft and use an arrow open curly brackets.
+
+And inside here we can do what we need to which is going to affect our Redux store and update our user
+
+interface.
+
+So first of all, we need to find the index of the item in our basket.
+
+So I'll use const item index equals.
+
+Then use draft dot items.
+
+And we can use the find index method.
+
+And then use item.
+
+Use the arrow and say item dot product id that's equal to the product id we're passing in as a parameter.
+
+Below this we can check to see if the item index is greater than or equal to zero, and if it is, that
+
+means the item is in our basket and we wish to lower the quantity and or remove it.
+
+If that lowering of the quantity reduces the quantity in the basket to zero for that item.
+
+So we'll use draft dot items, and then we can use the item index to specify which item we wish to update.
+
+And then use quantity and say minus equals quantity.
+
+And then we can check the quantity now of the item, and if it's less than or equal to zero, then we
+
+can remove it from the basket.
+
+So we'll specify if draft dot items and the item index dot quantity and see if that is less than or
+
+equal to zero.
+
+And if that is the case we'll use draft dot items.
+
+And to remove an item from an array we can use the splice method.
+
+Specify.
+
+We wish to remove the item at index what item index is and say we wish to remove one of them, and then
+
+below the patch results we can use a try catch block.
+
+So we'll just add the try catch.
+
+And inside the try we'll just say await query fulfilled.
+
+And inside the catch we'll just use console dot log error.
+
+And we will use the patch results undo to undo any changes.
+
+If we do encounter an error when we come back from our API, and then we just need to add the hook that
+
+we need and we're going to use the use remove basket item mutation.
+
+And now we're in a position to go and use this.
+
+And we'll use this in our basket item component.
+
+So let's open up that.
+
+Next we'll open up the basket item dot TSX and I'll remove the others.
+
+It's getting quite busy at the top there and inside this quite busy component actually at the top here
+
+we're just going to use the hook and we'll say const in square brackets.
+
+We'll say remove basket item equals and we'll use the use remove basket item mutation hook.
+
+We don't really need to worry about mutations if we're updating our state optimistically as we are,
+
+because there is no loading when the user clicks on a button.
+
+The idea is that this immediately updates the UI, and if there is a problem when the API does come
+
+back to us, then we just simply undo the change that we've made.
+
+So let's just focus on the two buttons.
+
+We have to remove the basket items, and the first one is going to be this icon button.
+
+And let's bring things down inside here.
+
+So I don't go off the edge of the screen inside the button here I'm just going to use the onclick and
+
+add parentheses.
+
+Add the arrow and then we can use the remove basket item method.
+
+And inside the arguments here we need to send up the product ID and the quantity inside an object.
+
+So I'll specify product id and this is going to be basket item.
+
+And this is going to be item dot product ID.
+
+And we'll also specify the quantity.
+
+And this is a decrement button.
+
+So we'll just have the quantity as one inside here.
+
+And we'll also need the onclick for the other button which allows them to delete the entire item from
+
+their basket.
+
+And we'll add that.
+
+So I'll just copy what we have here because it's going to be very similar.
+
+But this icon button as well will add the onclick event, but this time full of quantity.
+
+We'll just specify item dot quantity which will have the effect of removing this from the basket.
+
+So with that in place we should be able to test our progress.
+
+And I'll just refresh the page.
+
+And first of all let's take a look at reducing an item quantity.
+
+So this one's got three in my case.
+
+So I'll click the minus button.
+
+We see the quantity updating immediately.
+
+We see that reflected in the navbar as well.
+
+So that looks good.
+
+If I take a look at the second one the blue hat I'll just use this minus button.
+
+But we would expect this to be removed from the basket.
+
+So I'll click minus and we see it go in the basket.
+
+And also we see the nav bar updated as well.
+
+And let's use this button to remove the react board in my case.
+
+And I'll click this and it's gone from our basket.
+
+And if I just click this one just to make sure that we do remove the two items and we want to see this
+
+go to five.
+
+In my case, I'll click that button.
+
+And we do see that is the case.
+
+I won't test a broken request this time.
+
+I'll presume that if we do get an error back from the API, then it would undo the changes just as we
+
+did before.
+
+But please do feel free to test that on your app if you wish to do so.
+
+So the next thing we're going to look at, which you would think would be quite straightforward, is
+
+the add button.
+
+But it's not as easy as you might think it is.
+
+In fact, what I would encourage you to do is take a look at using or implementing this based on the
+
+code that we currently have now, and see if you can figure out what kind of problem you're going to
+
+get.
+
+I don't expect you to be able to resolve this.
+
+This is a little bit tricky what we're about to look at next, but I would encourage you to have a think
+
+about what possible problems we could encounter simply by enabling this functionality.
+
+And really it's TypeScript problems that we're going to look at.
+
+So what we'll take a look at next is enabling that functionality.
+
+
+vid 91
+
+
+Okay, so I mentioned this might be a bit trickier.
+
+And why would it be a bit trickier.
+
+Well, if we think about what we're working with here, what have we got to work with in our basket
+
+page.
+
+These are basket items.
+
+So they're one type of thing.
+
+And if we take a look at our catalog page what are we working with inside here when we click the button.
+
+Well this is a product.
+
+So it's a different type.
+
+But we really want to use the same function to add an item to our cart.
+
+No matter whether we click on the product card or the shopping cart.
+
+Our users don't care that these are different types.
+
+They're not bothered about this, but we do know that we want to add an item into our cart or increase
+
+the quantity, in this case in our shopping cart.
+
+So let's see if we can figure out how to do this.
+
+And we'll go back to VS code.
+
+And we're going to go to our add basket item in the basket API.
+
+So inside here what we currently have we're taking in A product as the parameter and not a basket item.
+
+But we can give this a union type.
+
+So we could say that this products and I might be tempted to change it to item, but I'll keep it as
+
+product just now.
+
+But this could be a product, or it could be an item that we get from.
+
+Let's just make sure the import is correct for that.
+
+And yeah, we're getting that from the app models basket.
+
+So this immediately gives us a problem with TypeScript because all of a sudden the item if we go and
+
+take a look at our type we're using here in the basket TS, our item doesn't have an ID property.
+
+It's got a product ID property.
+
+If we take a look at our error.
+
+Well that's the problem.
+
+And if we hover over this then the property ID does not exist on type, product and item.
+
+If both of these had an ID property, we would not get a complaint.
+
+And we've also got an issue with pushing a new item Because if we are increasing the quantity, then
+
+we don't need this.
+
+We don't need to create a new item because we are just increasing the quantity in this component that
+
+we're using this.
+
+So to solve this problem we need a time guard.
+
+We need to know when this method is called.
+
+Are we passing in a product or are we passing in an item.
+
+And then once we know what type we're working with, we can act accordingly.
+
+So let's create a type guard first of all.
+
+And let's do this just above our create API method.
+
+So we'll create a helper function for lists.
+
+So we get it out of the way of our code.
+
+And we'll say function.
+
+And we'll call our type guard is basket item.
+
+And we're going to pass in a product that is a type of product or it's a item.
+
+And then as our return type here we're going to say product is baskets or product is item.
+
+And that's going to be a true or false value.
+
+So if it is a basket item which I've just called item here, then this is going to return true.
+
+Now the check for this we need to return.
+
+And we'll say products as item.
+
+And our items have a quantity property.
+
+And we can check to make sure that is not equal to undefined.
+
+So what this will return is if it is a basket item, it will have the quantity property.
+
+And that property will not be undefined.
+
+When it comes to a product.
+
+It does not have the quantity property.
+
+So that will be undefined.
+
+So then we know which it is.
+
+We'll know if it's a basket item or we'll know if it's a product.
+
+So inside our code then for the ad basket item we'll make some adjustments to this.
+
+So we're using parentheses here which means we're implicitly returning where I've highlighted from this
+
+code.
+
+Let's take out those parentheses.
+
+So it gives us room to make some extra statements inside here.
+
+And what that does mean is that we do need to return from this.
+
+So I'm going to return open curly brackets, cut the URL and the method, and then just paste that inside
+
+the return.
+
+So when we're just using curly brackets like this then we do explicitly need to add this return statement.
+
+So that means we can write some code above the return statement.
+
+And we'll check what type we're working with.
+
+So we'll create a variable for product ID because that's one of the things that's different between
+
+the basket item and the product.
+
+So we'll say const product ID and we'll use our is basket item type guard.
+
+We'll pass in the product and we'll use a ternary.
+
+And if it is a product that means we have a product.id.
+
+And if it is a basket item, that means we have the product dot product id as the id.
+
+Otherwise it's going to be productid.
+
+And then we can use the product ID inside the query string parameters here.
+
+So that solves one problem.
+
+And for the other one.
+
+Then inside this push the draft items push.
+
+Although technically we'd never be able to use a basket item to add a new basket item.
+
+So all we'll do here is we'll just check the Is basket item.
+
+Once again, pass in the products.
+
+Once again use a ternary and if it is the basket item, then we can just use their product as the first
+
+option there.
+
+Otherwise we'll push the new item in.
+
+So I've still got a warning somewhere.
+
+Let's see where that warning is.
+
+And over here.
+
+Where is the warning?
+
+Oh here it is.
+
+And of course we're using the products ID there.
+
+So we'll need to check to see what we're working with here as well.
+
+Similar to what we did up here, we're going to need to create a variable for the product ID.
+
+So I'm just going to use the same code.
+
+But inside here just above the const existing item we'll use the type guard.
+
+Again check to make sure it's the basket item or not.
+
+And then just use product ID here as well.
+
+And that should remove any errors that we have inside here.
+
+So a bit of a pain to use this because of the nature of TypeScript and using two different types for
+
+a single function where we've got the product and the item here makes it a bit more complicated.
+
+But these type guards do solve this kind of problem, and we can check to see what type something is.
+
+And the way that we typically go about this is we just look for a property that's different between
+
+the two types.
+
+Our basket items has that quantity property.
+
+So that makes it a good candidate to check for to see what it is we're working with.
+
+And then once we know what we're working with.
+
+It's just a matter of adding conditionals using ternaries in this case to adjust our code accordingly.
+
+So what we can do now is we can head back to our basket item TSX, and we can go up to the top here
+
+and we can use the other hook.
+
+So I'll just copy this down.
+
+And instead of remove basket item I'll say add basket item.
+
+And I'll bring in the add basket or use Add basket Item mutation.
+
+And then we can use that for our add button.
+
+And I'll just move this stuff down again quite busy these components for the basket.
+
+So I'll do a bit of code shuffling so that I try and keep as much on the screen as possible.
+
+And for this one, then we just need the on click and we'll add the parentheses and the arrow and we'll
+
+say add basket item.
+
+And for this one we need to pass in as the product parameter The item and the quantity.
+
+We're only allowing them to click the add button here.
+
+So the quantity is going to be one.
+
+So if we go back to our browser what we should find is that I see nothing.
+
+If I refresh the page let's hopefully we'll get the catalog or the basket in this case back.
+
+And what we should be able to do now is click on the plus button and see everything updating immediately.
+
+And great.
+
+We can remove, we can add and the totals are getting updated there and everything looks good.
+
+And I'm just going to check the console actually because it's been a while and I don't have it open
+
+at the moment.
+
+So I just want to make sure there's no nastiness inside there.
+
+And that all looks fine as well.
+
+Okay, great.
+
+Now we've dealt with that problematic area.
+
+The next thing we'll take a look at is adding the totals on the page so that we can see the running
+
+total, add all these up and display that information to the user.
+
+And we'll take a look at that next.
+
+
+
+vid 92
+
+
+

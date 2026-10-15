@@ -165,4 +165,57 @@ public class ProductsController(
 
         return BadRequest("Problem deleting the product");
     }
+
+    public record CreateReviewDto(string? BuyerEmail, int Rating, string Comment);
+
+    [HttpGet("{id}/reviews")]
+    public async Task<IActionResult> GetProductReviews(int id)
+    {
+        var reviews = await context.Reviews
+            .Where(r => r.ProductId == id)
+            .OrderByDescending(r => r.CreatedAt)
+            .ToListAsync();
+
+        var averageRating = reviews.Count > 0
+            ? Math.Round(reviews.Average(r => r.Rating), 1)
+            : 0;
+
+        return Ok(new
+        {
+            reviews,
+            totalReviews = reviews.Count,
+            averageRating
+        });
+    }
+
+    [HttpPost("{id}/reviews")]
+    public async Task<IActionResult> AddProductReview(int id, [FromBody] CreateReviewDto dto)
+    {
+        var product = await context.Products.FindAsync(id);
+        if (product == null) return NotFound("Product not found");
+
+        if (dto.Rating < 1 || dto.Rating > 5)
+        {
+            return BadRequest("Rating must be between 1 and 5.");
+        }
+
+        if (string.IsNullOrWhiteSpace(dto.Comment))
+        {
+            return BadRequest("Comment is required.");
+        }
+
+        var review = new ProductReview
+        {
+            ProductId = id,
+            BuyerEmail = string.IsNullOrWhiteSpace(dto.BuyerEmail) ? "verified_buyer@test.com" : dto.BuyerEmail,
+            Rating = dto.Rating,
+            Comment = dto.Comment.Trim(),
+            CreatedAt = DateTime.UtcNow
+        };
+
+        context.Reviews.Add(review);
+        await context.SaveChangesAsync();
+
+        return Ok(review);
+    }
 }

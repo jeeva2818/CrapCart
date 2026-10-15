@@ -36,6 +36,7 @@ export const accountsApi = createApi({
         register: builder.mutation<void, {
             email: string
             password: string
+            role?: string
         }>({
             query: (creds) => ({
                 url: 'account/register',

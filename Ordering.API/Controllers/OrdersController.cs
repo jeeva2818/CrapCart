@@ -54,9 +54,19 @@ public class OrdersController(
     [HttpPut("{id:int}/status")]
     public async Task<IActionResult> UpdateOrderStatus(
         int id,
-        [FromBody] string status,
+        [FromBody] System.Text.Json.JsonElement body,
         CancellationToken cancellationToken)
     {
+        string? status = null;
+        if (body.ValueKind == System.Text.Json.JsonValueKind.String)
+        {
+            status = body.GetString();
+        }
+        else if (body.ValueKind == System.Text.Json.JsonValueKind.Object && body.TryGetProperty("status", out var prop))
+        {
+            status = prop.GetString();
+        }
+
         var order = await context.Orders
             .Include(order => order.OrderItems)
             .FirstOrDefaultAsync(
@@ -74,19 +84,25 @@ public class OrdersController(
             "PaymentReceived",
             "Processing",
             "Shipped",
+            "OutForDelivery",
             "Delivered",
+            "ReturnRequested",
+            "Returned",
+            "ReturnRejected",
             "Cancelled"
         };
 
-        if (string.IsNullOrWhiteSpace(status) ||
-            !allowedStatuses.Contains(status))
+        var matchedStatus = allowedStatuses.FirstOrDefault(
+            s => s.Equals(status?.Trim(), StringComparison.OrdinalIgnoreCase));
+
+        if (matchedStatus == null)
         {
             return BadRequest(
                 "Invalid status. Allowed statuses: " +
                 string.Join(", ", allowedStatuses));
         }
 
-        order.OrderStatus = status;
+        order.OrderStatus = matchedStatus;
 
         await context.SaveChangesAsync(cancellationToken);
 
@@ -97,9 +113,19 @@ public class OrdersController(
     [HttpPut("payment-intent/{paymentIntentId}/status")]
     public async Task<IActionResult> UpdateOrderStatusByPaymentIntent(
         string paymentIntentId,
-        [FromBody] string status,
+        [FromBody] System.Text.Json.JsonElement body,
         CancellationToken cancellationToken)
     {
+        string? status = null;
+        if (body.ValueKind == System.Text.Json.JsonValueKind.String)
+        {
+            status = body.GetString();
+        }
+        else if (body.ValueKind == System.Text.Json.JsonValueKind.Object && body.TryGetProperty("status", out var prop))
+        {
+            status = prop.GetString();
+        }
+
         var order = await context.Orders
             .Include(order => order.OrderItems)
             .FirstOrDefaultAsync(
@@ -287,5 +313,68 @@ public class OrdersController(
                 detail: "An unexpected error occurred while creating the order.",
                 statusCode: StatusCodes.Status500InternalServerError);
         }
+    }
+
+    public record ReturnOrderRequest(string Reason, string? Comments);
+
+    // POST: api/orders/5/return
+    [HttpPost("{id:int}/return")]
+    public async Task<IActionResult> RequestReturn(
+        int id,
+        [FromBody] ReturnOrderRequest request,
+        CancellationToken cancellationToken)
+    {
+        var order = await context.Orders
+            .Include(order => order.OrderItems)
+            .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+
+        if (order == null)
+        {
+            return NotFound($"Order with ID {id} was not found.");
+        }
+
+        if (order.OrderStatus != "Delivered")
+        {
+            return BadRequest("Only delivered orders can be requested for return.");
+        }
+
+        order.OrderStatus = "ReturnRequested";
+        order.ReturnReason = request.Reason;
+        order.ReturnComments = request.Comments;
+        order.ReturnedAt = DateTime.UtcNow;
+
+        await context.SaveChangesAsync(cancellationToken);
+
+        return Ok(order);
+    }
+
+    public record ReturnDecisionRequest(bool Approved);
+
+    // PUT: api/orders/5/return-decision
+    [HttpPut("{id:int}/return-decision")]
+    public async Task<IActionResult> ProcessReturnDecision(
+        int id,
+        [FromBody] ReturnDecisionRequest request,
+        CancellationToken cancellationToken)
+    {
+        var order = await context.Orders
+            .Include(order => order.OrderItems)
+            .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+
+        if (order == null)
+        {
+            return NotFound($"Order with ID {id} was not found.");
+        }
+
+        if (order.OrderStatus != "ReturnRequested")
+        {
+            return BadRequest("Order is not in ReturnRequested status.");
+        }
+
+        order.OrderStatus = request.Approved ? "Returned" : "ReturnRejected";
+
+        await context.SaveChangesAsync(cancellationToken);
+
+        return Ok(order);
     }
 }

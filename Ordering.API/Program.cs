@@ -47,7 +47,10 @@ using (var scope = app.Services.CreateScope())
         "ALTER TABLE Orders ADD COLUMN PaymentSummary_Last4 TEXT NOT NULL DEFAULT '';",
         "ALTER TABLE Orders ADD COLUMN PaymentSummary_Brand TEXT NOT NULL DEFAULT '';",
         "ALTER TABLE Orders ADD COLUMN PaymentSummary_ExpMonth INTEGER NOT NULL DEFAULT 0;",
-        "ALTER TABLE Orders ADD COLUMN PaymentSummary_ExpYear INTEGER NOT NULL DEFAULT 0;"
+        "ALTER TABLE Orders ADD COLUMN PaymentSummary_ExpYear INTEGER NOT NULL DEFAULT 0;",
+        "ALTER TABLE Orders ADD COLUMN ReturnReason TEXT NULL;",
+        "ALTER TABLE Orders ADD COLUMN ReturnComments TEXT NULL;",
+        "ALTER TABLE Orders ADD COLUMN ReturnedAt TEXT NULL;"
     ];
 
     foreach (var sql in alterStatements)

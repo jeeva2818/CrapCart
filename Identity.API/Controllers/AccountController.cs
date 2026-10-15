@@ -62,17 +62,9 @@ public class AccountController(
             return ValidationProblem();
         }
 
-        var roleResult = await userManager.AddToRoleAsync(user, "member");
-
-        if (!roleResult.Succeeded)
-        {
-            await userManager.DeleteAsync(user);
-
-            return Problem(
-                title: "Registration failed",
-                detail: "Could not assign the member role.",
-                statusCode: StatusCodes.Status500InternalServerError);
-        }
+        var assignedRole = registerDto.Role?.Trim().ToLowerInvariant() == "seller" ? "seller" : "buyer";
+        await userManager.AddToRoleAsync(user, assignedRole);
+        await userManager.AddToRoleAsync(user, "member");
 
         return Ok();
     }

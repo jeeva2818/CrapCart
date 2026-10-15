@@ -32,7 +32,7 @@ function getBasketId(): string {
 export const catalogApi = createApi({
     reducerPath: 'catalogApi',
     baseQuery: baseQueryWithErrorHandling,
-    tagTypes: ['Basket'],
+    tagTypes: ['Basket', 'Reviews'],
 
     endpoints: builder => ({
 
@@ -175,6 +175,38 @@ export const catalogApi = createApi({
                 method: 'DELETE'
             }),
             invalidatesTags: ['Basket']
+        }),
+
+        fetchProductReviews: builder.query<{
+            reviews: Array<{
+                id: number
+                productId: number
+                buyerEmail: string
+                rating: number
+                comment: string
+                createdAt: string
+            }>
+            totalReviews: number
+            averageRating: number
+        }, number>({
+            query: (productId) => ({
+                url: `products/${productId}/reviews`
+            }),
+            providesTags: (_result, _error, id) => [{ type: 'Reviews', id }]
+        }),
+
+        addProductReview: builder.mutation<void, {
+            productId: number
+            buyerEmail?: string
+            rating: number
+            comment: string
+        }>({
+            query: ({ productId, ...body }) => ({
+                url: `products/${productId}/reviews`,
+                method: 'POST',
+                body
+            }),
+            invalidatesTags: (_result, _error, { productId }) => [{ type: 'Reviews', id: productId }]
         })
 
     })
@@ -189,5 +221,7 @@ export const {
     useRemoveBasketItemMutation,
     useClearBasketMutation,
     useAddCouponMutation,
-    useRemoveCouponMutation
+    useRemoveCouponMutation,
+    useFetchProductReviewsQuery,
+    useAddProductReviewMutation
 } = catalogApi

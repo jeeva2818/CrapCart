@@ -1,5 +1,5 @@
 
-import { Container, Paper, Box, Typography, TextField, Button } from '@mui/material'
+import { Container, Paper, Box, Typography, TextField, Button, RadioGroup, FormControlLabel, Radio } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -11,13 +11,16 @@ const RegisterForm = () => {
     const [registerUser, { isLoading }] = useRegisterMutation()
 
     const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors, isValid }
-} = useForm<RegisterSchema>({
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors, isValid }
+    } = useForm<RegisterSchema>({
         mode: 'onTouched',
-        resolver: zodResolver(registerSchema)
+        resolver: zodResolver(registerSchema),
+        defaultValues: {
+            role: 'Buyer'
+        }
     })
 
     const onSubmit = async (data: RegisterSchema) => {
@@ -91,6 +94,27 @@ const RegisterForm = () => {
                         error={!!errors.password}
                         helperText={errors.password?.message}
                     />
+
+                    <Box sx={{ border: '1px solid #ccc', borderRadius: 2, p: 2 }}>
+                        <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
+                            Account Type:
+                        </Typography>
+                        <RadioGroup
+                            row
+                            defaultValue="Buyer"
+                        >
+                            <FormControlLabel
+                                value="Buyer"
+                                control={<Radio {...register('role')} defaultChecked value="Buyer" />}
+                                label="🛒 Buyer (Customer)"
+                            />
+                            <FormControlLabel
+                                value="Seller"
+                                control={<Radio {...register('role')} value="Seller" />}
+                                label="🏪 Seller (Merchant)"
+                            />
+                        </RadioGroup>
+                    </Box>
 
                     <Button
                         variant="contained"

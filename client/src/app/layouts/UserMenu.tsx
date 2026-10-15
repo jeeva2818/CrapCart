@@ -10,6 +10,7 @@ import {
 import PersonIcon from '@mui/icons-material/Person'
 import HistoryIcon from '@mui/icons-material/History'
 import InventoryIcon from '@mui/icons-material/Inventory'
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { Link } from 'react-router-dom'
 import type { User } from '../models/user'
@@ -66,7 +67,23 @@ const UserMenu = ({ user }: Props) => {
                     </ListItemText>
                 </MenuItem>
 
-                {user.roles.includes('admin') && (
+                {(user.roles?.some(r => r.toLowerCase() === 'seller' || r.toLowerCase() === 'admin')) && (
+                    <MenuItem
+                        component={Link}
+                        to="/seller/orders"
+                        onClick={handleClose}
+                    >
+                        <ListItemIcon>
+                            <LocalShippingIcon fontSize="small" />
+                        </ListItemIcon>
+
+                        <ListItemText>
+                            Seller Fulfillment
+                        </ListItemText>
+                    </MenuItem>
+                )}
+
+                {(user.roles?.some(r => r.toLowerCase() === 'seller' || r.toLowerCase() === 'admin')) && (
                     <MenuItem
                         component={Link}
                         to="/inventory"

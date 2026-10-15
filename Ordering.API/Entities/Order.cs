@@ -25,5 +25,9 @@ public class Order
 
     public List<OrderItem> OrderItems { get; set; } = [];
 
+    public string? ReturnReason { get; set; }
+    public string? ReturnComments { get; set; }
+    public DateTime? ReturnedAt { get; set; }
+
     public decimal Total => Subtotal + DeliveryFee - Discount;
 }

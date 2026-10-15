@@ -17,6 +17,7 @@ import OrdersPage from '../../features/orders/OrdersPage'
 import OrderDetailsPage from '../../features/orders/OrderDetailsPage'
 import HomePage from '../../features/home/HomePage'
 import InventoryPage from "../../features/admin/InventoryPage";
+import SellerOrdersPage from '../../features/seller/SellerOrdersPage'
 
 export const router = createBrowserRouter([
     {
@@ -81,7 +82,11 @@ export const router = createBrowserRouter([
                     {
                         path: "inventory",
                         element: <InventoryPage />
-                    }       
+                    },
+                    {
+                        path: "seller/orders",
+                        element: <SellerOrdersPage />
+                    }
                 ]
             },
             {

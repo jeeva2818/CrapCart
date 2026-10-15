@@ -28,11 +28,15 @@ export interface Order {
     orderStatus: string;
     paymentSummary: PaymentSummary;
     total: number;
+    returnReason?: string;
+    returnComments?: string;
+    returnedAt?: string;
 }
 
 export interface OrderItem {
     productId: number;
-    name: string;
+    name?: string;
+    productName?: string;
     pictureUrl: string;
     price: number;
     quantity: number;

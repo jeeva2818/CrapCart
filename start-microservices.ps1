@@ -13,7 +13,7 @@ $services = @(
 
 foreach ($svc in $services) {
     Write-Host "Starting $($svc.Name)..." -ForegroundColor Cyan
-    Start-Process powershell -ArgumentList "-NoExit", "-Command", " `$Host.UI.RawUI.WindowTitle = '$($svc.Name)'; Set-Location '$($svc.Path)'; dotnet run"
+    Start-Process powershell -ArgumentList "-NoExit", "-Command", "try { `$Host.UI.RawUI.WindowTitle = '$($svc.Name)' } catch {}; Set-Location '$($svc.Path)'; dotnet run"
 }
 
 Write-Host "`nAll microservices and Gateway.API launched!" -ForegroundColor Green

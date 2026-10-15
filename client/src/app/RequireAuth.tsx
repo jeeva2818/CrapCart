@@ -12,9 +12,10 @@ const RequireAuth = () => {
 
     const location = useLocation()
 
-    const adminRoutes = [
+    const sellerOrAdminRoutes = [
         '/inventory',
-        '/admin/dashboard'
+        '/admin/dashboard',
+        '/seller/orders'
     ]
 
     if (isLoading) {
@@ -31,8 +32,9 @@ const RequireAuth = () => {
     }
 
     if (
-        adminRoutes.includes(location.pathname) &&
-        !user.roles.includes('admin')
+        sellerOrAdminRoutes.includes(location.pathname) &&
+        !user.roles?.some(r => r.toLowerCase() === 'admin') &&
+        !user.roles?.some(r => r.toLowerCase() === 'seller')
     ) {
         return (
             <Navigate

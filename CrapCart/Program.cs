@@ -44,7 +44,7 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .WithOrigins("https://localhost:3000")
             .AllowCredentials();
-    });
+    }); 
 });
 
 builder.Services.AddDbContext<StoreContext>(options =>

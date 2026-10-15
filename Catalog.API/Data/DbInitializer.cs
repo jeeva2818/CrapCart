@@ -12,6 +12,42 @@ public class DbInitializer
 
         await context.Database.EnsureCreatedAsync();
 
+        await context.Database.ExecuteSqlRawAsync(
+            "CREATE TABLE IF NOT EXISTS Reviews (" +
+            "Id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "ProductId INTEGER NOT NULL, " +
+            "BuyerEmail TEXT NOT NULL, " +
+            "Rating INTEGER NOT NULL, " +
+            "Comment TEXT NOT NULL, " +
+            "CreatedAt TEXT NOT NULL);");
+
+        if (!await context.Reviews.AnyAsync())
+        {
+            var firstProduct = await context.Products.FirstOrDefaultAsync();
+            if (firstProduct != null)
+            {
+                context.Reviews.AddRange(
+                    new ProductReview
+                    {
+                        ProductId = firstProduct.Id,
+                        BuyerEmail = "romanreigns2818@gmail.com",
+                        Rating = 5,
+                        Comment = "Amazing board! Arrived on time in perfect condition. Super smooth ride.",
+                        CreatedAt = DateTime.UtcNow.AddDays(-2)
+                    },
+                    new ProductReview
+                    {
+                        ProductId = firstProduct.Id,
+                        BuyerEmail = "verified_shopper@gmail.com",
+                        Rating = 4,
+                        Comment = "High quality materials, definitely recommended.",
+                        CreatedAt = DateTime.UtcNow.AddDays(-5)
+                    }
+                );
+                await context.SaveChangesAsync();
+            }
+        }
+
         if (context.Products.Any()) return;
 
         var products = new List<Product>

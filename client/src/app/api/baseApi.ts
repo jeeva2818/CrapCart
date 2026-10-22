@@ -20,6 +20,10 @@ const customBaseQuery = fetchBaseQuery({
         if (token) {
             headers.set('Authorization', `Bearer ${token}`)
         }
+        const basketId = localStorage.getItem('basketId')
+        if (basketId) {
+            headers.set('BasketId', basketId)
+        }
         return headers
     }
 })

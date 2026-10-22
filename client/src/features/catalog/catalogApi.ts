@@ -14,16 +14,22 @@ function isBasketItem(
     return (product as BasketItem).quantity !== undefined
 }
 
-function getBasketId(): string {
-    let basketId = Cookies.get('basketId')
+export function getBasketId(): string {
+    let basketId = localStorage.getItem('basketId') || Cookies.get('basketId')
 
     if (!basketId) {
         basketId = crypto.randomUUID()
-
-        Cookies.set('basketId', basketId, {
-            expires: 7,
-            sameSite: 'lax'
-        })
+        localStorage.setItem('basketId', basketId)
+        try {
+            Cookies.set('basketId', basketId, {
+                expires: 7,
+                sameSite: 'lax'
+            })
+        } catch {
+            // ignore if third-party cookie blocked
+        }
+    } else {
+        localStorage.setItem('basketId', basketId)
     }
 
     return basketId
@@ -141,6 +147,7 @@ export const catalogApi = createApi({
                 try {
                     await queryFulfilled
 
+                    localStorage.removeItem('basketId')
                     Cookies.remove('basketId')
 
                     dispatch(
@@ -163,7 +170,7 @@ export const catalogApi = createApi({
 
         addCoupon: builder.mutation<Basket, string>({
             query: code => ({
-                url: `basket/${code}`,
+                url: `basket/${code}?basketId=${getBasketId()}`,
                 method: 'POST'
             }),
             invalidatesTags: ['Basket']
@@ -171,7 +178,7 @@ export const catalogApi = createApi({
 
         removeCoupon: builder.mutation<void, void>({
             query: () => ({
-                url: 'basket/remove-coupon',
+                url: `basket/remove-coupon?basketId=${getBasketId()}`,
                 method: 'DELETE'
             }),
             invalidatesTags: ['Basket']

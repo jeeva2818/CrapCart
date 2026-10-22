@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithErrorHandling } from '../../app/api/baseApi'
 import type { Basket } from '../../app/models/basket'
-import { catalogApi } from '../catalog/catalogApi'
+import { catalogApi, getBasketId } from '../catalog/catalogApi'
 
 
 export const checkoutApi = createApi({
@@ -9,9 +9,9 @@ export const checkoutApi = createApi({
     baseQuery: baseQueryWithErrorHandling,
 
     endpoints: builder => ({
-        createPaymentIntent: builder.mutation<Basket, void>({
-            query: () => ({
-                url: 'payments',
+        createPaymentIntent: builder.mutation<Basket, string | void>({
+            query: (basketId) => ({
+                url: `payments/${basketId || getBasketId()}`,
                 method: 'POST'
             }),
 

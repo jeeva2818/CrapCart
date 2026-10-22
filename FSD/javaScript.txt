@@ -1,0 +1,514 @@
+What Can JavaScript Do?
+JavaScript is the programming language of the web.
+
+It can calculate, manipulate and validate data.
+
+It can update and change both HTML and CSS.
+
+
+js file connect to html 
+ 
+=>	<script src = ./(filename)></script>
+
+Variable and Values
+
+=> use var to declare a variable(old before 2015)
+=> use let to declare 
+
+Constant
+
+=> use const to make the variable value as constant cant change the value once insert
+
+Type's Values
+
+=> string
+
+   let name = "Jeeva";
+
+=> number
+
+   let age = 21;
+
+=> Boolean (true or false)
+
+   let isAge = true;(or false)
+
+=> Array(add multiple Value)
+
+   let cartoon = [ "doraemon" , "Roll no 21"]
+
+=> Object(Key-Value Pair)
+
+   let student = {
+	name = "Jeeva";
+	age = 21;
+	}
+
+=> DataTypes
+
+| Type      | Example          |
+| --------- | ---------------- |
+| String    | `"Hello"`        |
+| Number    | `10, 10.5`       |
+| Boolean   | `true / false`   |
+| Undefined | `let x;`         |
+| Null      | `null`           |
+| Symbol    | `Symbol("id")`   |
+| BigInt    | `123n`           |
+| Object    | `{name:"Jeeva"}` |
+| Array     | `["a","b"]`      |
+
+=> Operator
+
+| Type       | Example               |  
+| ---------- | --------------------- |
+| Arithmetic | `+ - * / % **`        |  
+| Assignment | `= += -= *= /=`       |   
+| Comparison | `== === != > < >= <=` |   
+| Logical    | `&&                   |  
+| Increment  | `++ --`               |   
+| Ternary    | `condition ? a : b`   |
+
+=> Decision Making
+
+=> if 
+
+let age = 18;
+
+if (age >= 18) {
+    console.log("Eligible to vote");
+}
+
+=> if Else
+
+let age = 16;
+
+if (age >= 18) {
+    console.log("Eligible to vote");
+} else {
+    console.log("Not eligible to vote");
+}
+
+=> if else if else
+
+let mark = 75;
+
+if (mark >= 90) {
+    console.log("Grade A");
+}
+else if (mark >= 75) {
+    console.log("Grade B");
+}
+else if (mark >= 50) {
+    console.log("Grade C");
+}
+else {
+    console.log("Fail");
+}
+
+=> Nested If
+
+let age = 20;
+let hasLicense = true;
+
+if (age >= 18) {
+    if (hasLicense) {
+        console.log("Can drive");
+    }
+}
+
+=> Switch
+
+let day = 3;
+
+switch(day) {
+    case 1:
+        console.log("Monday");
+        break;
+    case 2:
+        console.log("Tuesday");
+        break;
+    case 3:
+        console.log("Wednesday");
+        break;
+    default:
+        console.log("Invalid Day");
+}
+
+=> Ternary
+
+let a = 20;
+let b = 15;
+
+let larger = a > b ? a : b;
+
+console.log("Larger Number = " + larger);
+
+=> Type Conversion(Explicit)
+
+  > String to Number
+
+ let a = "10";
+
+let num = Number(a);
+
+console.log(num);
+console.log(typeof num);
+
+ > Number to String
+
+let a = 100;
+
+let str = String(a);
+
+console.log(str);
+console.log(typeof str);
+
+ => Type Coersion
+
+ > String + Number                 way to add
+
+console.log("10" + 5);            let a = "10";
+op - 105                          let b = 5;
+                                  let result = Number(a) + b;
+                                  console.log(result);
+                                  op - 15
+
+=>String - Number
+
+console.log("10" - 5);
+op 5 
+
+=> Multiplication
+
+console.log("5" * 2);
+op 10
+
+=> Division 
+
+console.log("20" / 4);
+op 5
+
+=> Bool
+
+console.log(true + 1);   true = 1 so 1+1 = 2
+console.log(false + 1);  False = 0 so 0+1 = 1
+
+op - 2 
+   - 1
+
+=> Truthy and Falsy
+
+ In javaScript, every value is automatically treated as, 
+ Truthy - acts as True
+ Falsy - acts as False
+
+** important is FalsyValues **
+ 
+> false
+> 0
+> -0
+> 0n
+> ""
+> null
+> undefined
+> NaN	
+
+ ** Truthy Values **
+
+> "hello"
+> "0"
+> "false"
+> 1
+> -5
+> []
+> {}
+> true
+
+ Example of both Truthy and Falsy
+
+ <  let values = [
+  false,
+  0,
+  -0,
+  0n,
+  "",
+  null,
+  undefined,
+  NaN,
+  "Hello",
+  "0",
+  "false",
+  10,
+  -5,
+  [],
+  {},
+  true
+];
+
+for (let i = 0; i < values.length; i++) {
+  if (values[i]) {
+    console.log(values[i] + " → Truthy");
+  } else {
+    console.log(values[i] + " → Falsy");
+  }
+}   >
+
+Op - 
+
+   false → Falsy
+0 → Falsy
+0 → Falsy
+0 → Falsy
+ → Falsy
+null → Falsy
+undefined → Falsy
+NaN → Falsy
+Hello → Truthy
+0 → Truthy
+false → Truthy
+10 → Truthy
+-5 → Truthy
+ → Truthy
+[object Object] → Truthy
+true → Truthy
+
+
+=> Strict Mode
+
+  Use "use strict"; to Perform
+
+Example ,
+
+x= 10;
+console.log(x)
+op - 10
+
+if I use 
+
+"use strict";
+x=10;
+console.log(x);
+0p - undefined of x
+
+Because in strict mode:
+👉 You MUST declare variables using let, const, or var
+
+
+=> Function
+
+-> Normal Function
+
+ function greet() {
+    console.log("Hello Jeeva!");
+}
+
+greet();
+
+-> Function with Parameters
+
+function add(a, b) {
+    console.log(a + b);
+}
+
+add(10, 5);
+
+-> Function with Return
+
+function multiply(a, b) {
+    return a * b;  // it return the a*b
+}
+
+let result = multiply(4, 5); // result used to store the value of parameter return by function
+console.log(result);
+
+-> Function Expression
+
+let greet = function () {
+    console.log("Hello Jeeva!");
+};
+
+greet();
+
+
+=> Loops
+
+-> For
+
+for(let i = 1; i <= 5; i++)
+{
+    console.log(i);
+}
+op - 1 2 3 4 5 
+
+-> While
+
+let i = 1;
+
+while(i <= 5)
+{
+    console.log(i);
+    i++;
+}
+
+op - 1 2 3 4 5
+
+-> do While
+
+let i = 1;
+
+do
+{
+    console.log(i);
+    i++;
+}
+while(i <= 5);
+
+op- 1 2 3 4 5 
+
+another example  
+
+let i = 7;
+
+do
+{
+    console.log("Hello");
+    i--;
+}
+while(i > 7);
+
+op - hello world
+
+=> For Of
+
+--------normal way of for---------
+
+let fruits = ["Apple", "Mango", "Orange"];
+
+for (let i = 0; i < fruits.length; i++)
+{
+    console.log(fruits[i]);
+}
+
+--------for of --------
+
+let fruits = ["Apple", "Mango", "Orange"];
+
+for (let fruit of fruits)
+{
+    console.log(fruit);
+}
+
+same op - Apple Mango Orange
+
+---> it works only Array, String, Maps, Sets. Not used in normal object.
+
+********🎯 Easy Interview Answer
+
+for...of loop is used to iterate through values of an iterable like arrays and strings. It directly gives each value without using index.  ***********
+
+=> For in
+
+let student =
+{ name: "Jeeva", age: 21, dept: "CSE" };//key(name, age, dept) and value(Jeeva, 21, CSE)
+
+for (let key in student)   // key define variable from person
+{
+    console.log(key + " : " + student[key]);
+}
+
+op- 
+
+name : Jeeva
+age : 21
+dept : CSE
+
+
+=> Arrays
+
+Syntax : let ArrayName = ["Jeeva","Noje","Jeno"]
+
+eg: print all from array
+
+let noje = ["jeeva", "jeno", "noje"];
+
+for(let i=0; i<noje.length;i++)
+{
+console.log(noje[i]);
+}
+
+OP -  
+Jeeva
+jeno
+noje
+
+eg print any one from array
+
+let jeno = ['jeva', 'jeeva', jeeeeev'];
+console.log(jeno[2]);
+
+op- jeeeeev
+
+-> Change value in array 
+
+let noje = ["jeeva", "jeno", "noje"];
+noje[1]='aveej';
+console.log(noje);
+
+op- Jeeva aveej noje
+
+-> Add data inside array after creating //use push keyword
+
+console.log("before add");
+let noje = ["jeeva", "jeno", "noje"];
+console.log(noje);
+console.log("After Add");
+noje.push('nobita');
+console.log(noje);
+
+Op -
+   Jeeva jeno noje
+   Jeeva jeno noje nobita
+noje.pop();  //using pop it romove last date in the array
+console.log(noje);
+
+op - 
+   Jeeva jeno noje
+   Jeeva jeno noje nobita
+   Jeeva jeno noje
+
+
+-> Add two Array
+
+console.log("before add");
+let noje = ["jeeva", "jeno", "noje"];
+let jojegt = ["FF", "Pubg"];
+let con = noje.concat(jojegt);
+console.log(con);
+
+op-
+    [ 'jeeva', 'jeno', 'noje', 'FF', 'Pubg' ] 
+
+=>  Objects
+
+
+let noje = {
+    nama:"jeeva",
+    age: 21,
+    add:"RMD"
+};
+console.log(noje); //console.log(noje.add);
+
+Op - { nama: 'jeeva', age: 21, add: 'RMD' } //RMD
+
+
+
+
+  
+
+
+
+
+
+
+

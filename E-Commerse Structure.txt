@@ -1,0 +1,344 @@
+E-Commerse/
+│
+├── Gateway.API/                               # API GATEWAY (YARP Reverse Proxy :7000)
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── Gateway.API.csproj
+│   └── Program.cs
+│
+├── Catalog.API/                               # MICROSERVICE: Products & Catalog (:5001)
+│   ├── Controllers/
+│   │   └── ProductsController.cs
+│   ├── Data/
+│   │   ├── CatalogContext.cs
+│   │   └── DbInitializer.cs
+│   ├── Dtos/
+│   │   ├── CreateProductDto.cs
+│   │   └── UpdateProductDto.cs
+│   ├── Entities/
+│   │   └── Product.cs
+│   ├── Extensions/
+│   │   ├── HttpExtensions.cs
+│   │   └── ProductExtensions.cs
+│   ├── Helpers/
+│   │   ├── CloudinarySettings.cs
+│   │   └── MappingProfiles.cs
+│   ├── RequestHelpers/
+│   │   ├── PagedList.cs
+│   │   ├── PaginationMetadata.cs
+│   │   ├── PaginationParams.cs
+│   │   └── ProductsParams.cs
+│   ├── Services/
+│   │   └── ImageService.cs
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── Catalog.API.csproj
+│   ├── Catalog.API.http
+│   ├── catalog.db
+│   └── Program.cs
+│
+├── Basket.API/                                # MICROSERVICE: Shopping Cart & Coupons (:5003)
+│   ├── Controllers/
+│   │   └── BasketController.cs
+│   ├── Data/
+│   │   └── BasketContext.cs
+│   ├── Dtos/
+│   │   ├── AddBasketItemDto.cs
+│   │   ├── BasketDto.cs
+│   │   ├── BasketItemDto.cs
+│   │   ├── ProductDto.cs
+│   │   └── UpdatePaymentIntentDto.cs
+│   ├── Entities/
+│   │   ├── AppCoupon.cs
+│   │   ├── Basket.cs
+│   │   └── BasketItem.cs
+│   ├── Extensions/
+│   │   └── BasketExtensions.cs
+│   ├── Migrations/
+│   │   ├── 20261012070233_InitialCreate.cs
+│   │   ├── 20261012070233_InitialCreate.Designer.cs
+│   │   └── BasketContextModelSnapshot.cs
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   ├── Services/
+│   │   ├── CatalogService.cs
+│   │   └── DiscountService.cs
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── Basket.API.csproj
+│   ├── Basket.API.http
+│   ├── basket.db
+│   └── Program.cs
+│
+├── Identity.API/                              # MICROSERVICE: Auth, Identity & Address (:5051)
+│   ├── Controllers/
+│   │   └── AccountController.cs
+│   ├── Data/
+│   │   ├── IdentityContext.cs
+│   │   └── IdentityDbInitializer.cs
+│   ├── DTOs/
+│   │   └── RegisterDto.cs
+│   ├── Entities/
+│   │   ├── Address.cs
+│   │   └── User.cs
+│   ├── Migrations/
+│   │   ├── 20261012101010_InitialIdentity.cs
+│   │   ├── 20261012101010_InitialIdentity.Designer.cs
+│   │   └── IdentityContextModelSnapshot.cs
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── Identity.API.csproj
+│   ├── Identity.API.http
+│   ├── identity.db
+│   └── Program.cs
+│
+├── Ordering.API/                              # MICROSERVICE: Order Management (:5268)
+│   ├── Controllers/
+│   │   └── OrdersController.cs
+│   ├── Data/
+│   │   ├── OrderContext.cs
+│   │   └── OrderContextFactory.cs
+│   ├── DTOs/
+│   │   ├── BasketDto.cs
+│   │   └── CreateOrderDto.cs
+│   ├── Entities/
+│   │   ├── Address.cs
+│   │   ├── Order.cs
+│   │   ├── OrderItem.cs
+│   │   └── PaymentSummary.cs
+│   ├── Migrations/
+│   │   ├── 20261012102315_InitialOrdering.cs
+│   │   ├── 20261012102315_InitialOrdering.Designer.cs
+│   │   └── OrderContextModelSnapshot.cs
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   ├── Services/
+│   │   └── BasketService.cs
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── Ordering.API.csproj
+│   ├── Ordering.API.http
+│   ├── ordering.db
+│   └── Program.cs
+│
+├── Payments.API/                              # MICROSERVICE: Stripe Payments & Webhooks (:5025)
+│   ├── Controllers/
+│   │   └── PaymentsController.cs
+│   ├── DTOs/
+│   │   └── BasketDto.cs
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   ├── Services/
+│   │   ├── BasketClient.cs
+│   │   ├── OrderingClient.cs
+│   │   └── PaymentService.cs
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── Payments.API.csproj
+│   ├── Payments.API.http
+│   └── Program.cs
+│
+├── CrapCart/                                  # ORIGINAL MONOLITH BACKEND (:5868)
+│   ├── Controllers/
+│   │   ├── AccountController.cs
+│   │   ├── BaseApiController.cs
+│   │   ├── BasketController.cs
+│   │   ├── BuggyController.cs
+│   │   ├── ProductsController.cs
+│   │   └── WeatherForecastController.cs
+│   ├── Data/
+│   │   ├── DbInitializer.cs
+│   │   └── StoreContext.cs
+│   ├── Dtos/
+│   │   ├── BasketDto.cs
+│   │   ├── BasketItemDto.cs
+│   │   ├── CreateProductDto.cs
+│   │   ├── RegisterDto.cs
+│   │   └── UpdateProductDto.cs
+│   ├── Entities/
+│   │   ├── Address.cs
+│   │   ├── AppCoupon.cs
+│   │   ├── Basket.cs
+│   │   ├── BasketItem.cs
+│   │   ├── Product.cs
+│   │   └── User.cs
+│   ├── Extensions/
+│   │   ├── BasketExtensions.cs
+│   │   ├── HttpExtensions.cs
+│   │   └── ProductExtensions.cs
+│   ├── Helpers/
+│   │   ├── CloudinarySettings.cs
+│   │   └── MappingProfiles.cs
+│   ├── Middleware/
+│   │   └── ExceptionMiddleware.cs
+│   ├── Migrations/
+│   │   ├── 20260902054146_InitialCreate.cs
+│   │   ├── 20260919185407_BasketEntityAdded.cs
+│   │   ├── 20260924061330_IdentityAdded.cs
+│   │   ├── 20260924065020_AddressAdded.cs
+│   │   ├── 20261007103731_PublicIdAdded.cs
+│   │   ├── 20261008053817_CouponsAdded.cs
+│   │   └── StoreContextModelSnapshot.cs
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   ├── Request Helpers/
+│   │   ├── PagedList.cs
+│   │   ├── PaginationMetadata.cs
+│   │   ├── PaginationParams.cs
+│   │   └── ProductsParams.cs
+│   ├── Services/
+│   │   ├── DiscountService.cs
+│   │   └── ImageService.cs
+│   ├── wwwroot/
+│   │   ├── assets/
+│   │   ├── images/
+│   │   ├── favicon.svg
+│   │   ├── icons.svg
+│   │   └── index.html
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── CrapCart.csproj
+│   ├── CrapCart.http
+│   ├── crapcart.db
+│   ├── Program.cs
+│   ├── README.md
+│   └── WeatherForecast.cs
+│
+├── client/                                    # FRONTEND (React 19 + TypeScript + Vite :3000)
+│   ├── public/
+│   │   ├── images/
+│   │   ├── favicon.svg
+│   │   └── icons.svg
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── api/
+│   │   │   │   └── baseApi.ts
+│   │   │   ├── errors/
+│   │   │   │   ├── NotFound.tsx
+│   │   │   │   └── ServerError.tsx
+│   │   │   ├── layouts/
+│   │   │   │   ├── App.tsx
+│   │   │   │   ├── NavBar.tsx
+│   │   │   │   ├── styles.css
+│   │   │   │   ├── uiSlice.ts
+│   │   │   │   └── UserMenu.tsx
+│   │   │   ├── models/
+│   │   │   │   ├── basket.ts
+│   │   │   │   ├── order.ts
+│   │   │   │   ├── pagination.ts
+│   │   │   │   ├── productParams.ts
+│   │   │   │   ├── products.ts
+│   │   │   │   └── user.ts
+│   │   │   ├── routes/
+│   │   │   │   └── Routes.tsx
+│   │   │   ├── shared/
+│   │   │   │   └── components/
+│   │   │   │       ├── AppDropZone.tsx
+│   │   │   │       ├── AppPagination.tsx
+│   │   │   │       ├── AppSelectInput.tsx
+│   │   │   │       ├── AppTextInput.tsx
+│   │   │   │       ├── CheckboxButtons.tsx
+│   │   │   │       ├── OrderSummary.tsx
+│   │   │   │       ├── RadioButtonGroup.tsx
+│   │   │   │       └── TextInput.tsx
+│   │   │   ├── store/
+│   │   │   │   └── store.ts
+│   │   │   └── RequireAuth.tsx
+│   │   ├── features/
+│   │   │   ├── about/
+│   │   │   │   ├── AboutPage.tsx
+│   │   │   │   └── errorApi.ts
+│   │   │   ├── accounts/
+│   │   │   │   ├── accountsApi.ts
+│   │   │   │   ├── LoginForm.tsx
+│   │   │   │   └── RegisterForm.tsx
+│   │   │   ├── admin/
+│   │   │   │   ├── adminApi.ts
+│   │   │   │   ├── InventoryPage.tsx
+│   │   │   │   └── ProductForm.tsx
+│   │   │   ├── basket/
+│   │   │   │   ├── BasketItem.tsx
+│   │   │   │   └── BasketPage.tsx
+│   │   │   ├── catalog/
+│   │   │   │   ├── catalog.tsx
+│   │   │   │   ├── catalogApi.ts
+│   │   │   │   ├── catalogSlice.ts
+│   │   │   │   ├── Filters.tsx
+│   │   │   │   ├── ProductCard.tsx
+│   │   │   │   ├── ProductDetails.tsx
+│   │   │   │   ├── ProductList.tsx
+│   │   │   │   └── Search.tsx
+│   │   │   ├── checkout/
+│   │   │   │   ├── checkoutApi.ts
+│   │   │   │   ├── CheckoutPage.tsx
+│   │   │   │   ├── CheckoutStepper.tsx
+│   │   │   │   ├── CheckoutSuccess.tsx
+│   │   │   │   └── Review.tsx
+│   │   │   ├── contact/
+│   │   │   │   ├── ContactPage.tsx
+│   │   │   │   └── counterReducer.ts
+│   │   │   ├── home/
+│   │   │   │   └── HomePage.tsx
+│   │   │   └── orders/
+│   │   │       ├── orderApi.ts
+│   │   │       ├── OrderDetailsPage.tsx
+│   │   │       └── OrdersPage.tsx
+│   │   ├── lib/
+│   │   │   ├── hooks/
+│   │   │   │   └── useBasket.ts
+│   │   │   ├── schemas/
+│   │   │   │   ├── CreateProductSchema.ts
+│   │   │   │   ├── loginSchema.ts
+│   │   │   │   └── registerSchema.ts
+│   │   │   ├── filterEmptyValues.ts
+│   │   │   └── util.ts
+│   │   ├── assets/
+│   │   ├── App.css
+│   │   └── main.tsx
+│   ├── .env
+│   ├── .env.production
+│   ├── index.html
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── vite.config.ts
+│
+├── courseAssets/                              # COURSE RESOURCES & ASSETS
+│   └── courseAssets/
+│       ├── challenge/
+│       ├── images/
+│       ├── postman/
+│       └── snippets/
+│
+├── FSD/                                       # FULL STACK NOTES
+│   ├── API CREATION.txt
+│   ├── javaScript.txt
+│   └── NESTED IF.txt
+│
+├── React/                                     # REACT STUDY NOTES
+│   ├── React Use State.txt
+│   ├── React.txt
+│   ├── TypeScript.txt
+│   └── VS CODE.txt
+│
+├── .gitignore                                 # GIT IGNORE
+├── E-Commerse.slnx                            # .NET SOLUTION FILE
+├── PROJECT_ARCHITECTURE_AND_FLOW.md           # ARCHITECTURE & PORTS GUIDE
+├── process and Task.txt                       # PROGRESS & TASK TRACKER
+├── start-microservices.ps1                    # MICROSERVICES LAUNCH SCRIPT
+├── stripe.exe                                 # STRIPE CLI TOOL
+└── transcript.txt                             # COURSE TRANSCRIPT
+
+
+
+
+
+
+
+

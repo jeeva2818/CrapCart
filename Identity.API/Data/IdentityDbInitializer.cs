@@ -38,14 +38,14 @@ public static class IdentityDbInitializer
             }
         }
 
-        // 1. Admin: 1234@admin / admin@CrapCart
-        var admin = await userManager.FindByNameAsync("1234@admin");
+        // 1. Admin: @admin / admin@CrapCart
+        var admin = await userManager.FindByNameAsync("@admin");
         if (admin == null)
         {
             admin = new User
             {
-                UserName = "1234@admin",
-                Email = "1234@admin"
+                UserName = "Admin",
+                Email = "@admin"
             };
             var result = await userManager.CreateAsync(admin, "admin@CrapCart");
             if (!result.Succeeded)
@@ -59,16 +59,16 @@ public static class IdentityDbInitializer
                 await userManager.AddToRoleAsync(admin, r);
         }
 
-        // 2. Seller: abcd@tech / adcd@pvtltd
-        var seller = await userManager.FindByNameAsync("abcd@tech");
+        // 2. Seller: @seller / seller@CrapCart
+        var seller = await userManager.FindByNameAsync("@seller");
         if (seller == null)
         {
             seller = new User
             {
-                UserName = "abcd@tech",
-                Email = "abcd@tech"
+                UserName = "Seller",
+                Email = "@seller"
             };
-            var result = await userManager.CreateAsync(seller, "adcd@pvtltd");
+            var result = await userManager.CreateAsync(seller, "seller@CrapCart");
             if (!result.Succeeded)
             {
                 Console.WriteLine($"Failed to create seller: {string.Join(", ", result.Errors.Select(e => e.Description))}");
@@ -80,16 +80,16 @@ public static class IdentityDbInitializer
                 await userManager.AddToRoleAsync(seller, r);
         }
 
-        // 3. Buyer: romanreigns2818@gmail.com / roman@roman2818
-        var buyer = await userManager.FindByNameAsync("romanreigns2818@gmail.com");
+        // 3. Buyer: @buyer / buyer@CrapCart
+        var buyer = await userManager.FindByNameAsync("@buyer");
         if (buyer == null)
         {
             buyer = new User
             {
-                UserName = "romanreigns2818@gmail.com",
-                Email = "romanreigns2818@gmail.com"
+                UserName = "Buyer",
+                Email = "@buyer"
             };
-            var result = await userManager.CreateAsync(buyer, "roman@roman2818");
+            var result = await userManager.CreateAsync(buyer, "buyer@CrapCart");
             if (!result.Succeeded)
             {
                 Console.WriteLine($"Failed to create buyer: {string.Join(", ", result.Errors.Select(e => e.Description))}");

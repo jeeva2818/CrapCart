@@ -1,0 +1,196 @@
+%-------------------------
+% Resume in LaTeX
+% Template based on Jake Gutierrez's Resume Template (Overleaf)
+% Tailored for: Jeeva J
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Jeeva J} \\ \vspace{2pt}
+    \textbf{Software Developer $|$ .NET Core $\bullet$ ASP.NET Core $\bullet$ Microservices $\bullet$ React} \\ \vspace{2pt}
+    \small Tamil Nadu, India $|$ +91 8148066558 $|$ \href{mailto:jjeeva2818@gmail.com}{\underline{jjeeva2818@gmail.com}} $|$ 
+    \href{https://linkedin.com/in/jeeva2818}{\underline{linkedin.com/in/jeeva2818}} $|$
+    \href{https://github.com/jeeva2818}{\underline{github.com/jeeva2818}}
+\end{center}
+
+
+%-----------PROFESSIONAL SUMMARY-----------
+\section{Professional Summary}
+\small{Full Stack Software Developer with 9 months of professional industry experience (6-month internship + 3-month full-time with PF) specialized in building scalable web applications using \textbf{C\#}, \textbf{ASP.NET Core}, \textbf{Microservices Architecture}, and \textbf{React}. Experienced in architecting decoupled multi-service backends using \textbf{YARP API Gateway}, implementing asynchronous \textbf{Stripe Payment Gateway} flows with webhooks, and optimizing data persistence with \textbf{Entity Framework Core}. Proven ability to convert complex business workflows into high-performance, maintainable web systems.}
+
+
+%-----------KEY ACHIEVEMENTS-----------
+\section{Key Achievements}
+\begin{itemize}[leftmargin=0.15in, label={$\bullet$}]
+    \resumeItem{Architected and decoupled an enterprise e-commerce platform into \textbf{6 microservices} with a unified YARP Reverse Proxy API Gateway.}
+    \resumeItem{Engineered an end-to-end \textbf{Stripe Payment Gateway} integration with automated webhook listener, guaranteeing zero-discrepancy order fulfillment.}
+    \resumeItem{Converted a 6-month developer internship into a salaried \textbf{Full-Time Software Developer} role with PF through consistent delivery of core services.}
+\end{itemize}
+
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Programming}{: C\#, TypeScript, JavaScript, Java, Python, C, C++, HTML5, CSS3} \\
+     \textbf{Backend \& Frameworks}{: ASP.NET Core Web API, .NET 10/8, Microservices Architecture, YARP (Reverse Proxy Gateway), RESTful APIs, System Design} \\
+     \textbf{Databases \& ORM}{: Entity Framework Core (EF Core), SQLite, MySQL, SQL Server, Code-First Migrations, LINQ, Query Optimization} \\
+     \textbf{Cloud, DevOps \& Tools}{: Git, GitHub, Postman, Stripe CLI, NuGet, npm, Vite, Docker basics} \\
+     \textbf{Frontend}{: React 19, Redux Toolkit (RTK), RTK Query, Material UI (MUI), React Hook Form, Zod Validation} \\
+     \textbf{Integrations}{: Stripe API (PaymentIntents, Webhooks, Coupons), Cloudinary CDN (Asset Delivery)} \\
+     \textbf{Concepts}{: Microservices Pattern, Reverse Proxy / API Gateway, Role-Based Access Control (RBAC), Cookie \& Token Authentication, OOP, SDLC, Agile} \\
+     \textbf{Soft Skills}{: Team Collaboration, Cross-functional Coordination, Knowledge Transfer, Problem Solving, Code Reviews}
+    }}
+ \end{itemize}
+
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Software Developer (Full-time)}{Jun 2025 -- Present}
+      {Xmplar Management Solutions Pvt. Ltd.}{Tamil Nadu, India}
+      \resumeItemListStart
+        \resumeItem{Decomposed monolithic business modules into independent, decoupled microservices (Catalog, Basket, Identity, Ordering, Payments) using \textbf{ASP.NET Core Web API} and REST endpoints, improving system modularity and deployment velocity.}
+        \resumeItem{Configured and deployed \textbf{YARP (Yet Another Reverse Proxy)} as an API Gateway to manage centralized routing, CORS policies, and secure downstream proxying.}
+        \resumeItem{Integrated \textbf{Stripe Payment Gateway} via PaymentIntents and built a webhook listener service to handle asynchronous payment confirmations and automatically transition order states to \textit{PaymentReceived}.}
+        \resumeItem{Optimized database operations using \textbf{Entity Framework Core}, Code-First migrations, indexed queries, and server-side pagination headers to reduce API latency.}
+        \resumeItem{Implemented secure role-based access control (Admin/Member) and session authentication using \textbf{ASP.NET Core Identity} and HTTP-only cookies.}
+        \resumeItem{Integrated \textbf{Cloudinary CDN} for automatic media uploads and transformations, reducing server payload.}
+      \resumeItemListEnd
+      
+    \resumeSubheading
+      {Full Stack Developer Intern (Final Year)}{Dec 2024 -- May 2025}
+      {Xmplar Management Solutions Pvt. Ltd.}{Tamil Nadu, India}
+      \resumeItemListStart
+        \resumeItem{Built responsive, accessible user interfaces using \textbf{React 19}, \textbf{TypeScript}, and \textbf{Material UI (MUI)} components.}
+        \resumeItem{Implemented client-side global caching and synchronized API state management utilizing \textbf{Redux Toolkit} and \textbf{RTK Query}, eliminating redundant network payloads.}
+        \resumeItem{Created dynamic, schema-validated checkout forms utilizing \textbf{React Hook Form} and \textbf{Zod}.}
+        \resumeItem{Diagnosed and fixed 100+ UI bugs and API defects across development cycles, improving application stability.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Machine Learning Intern}{Jun 2022 -- Jul 2022}
+      {Pantech Solutions}{Remote}
+      \resumeItemListStart
+        \resumeItem{Built computer vision and machine learning pipelines for image preprocessing, normalization, and feature extraction.}
+        \resumeItem{Trained and fine-tuned machine learning models for image classification, iterating on hyperparameters to improve model accuracy.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{Enterprise Microservices E-Commerce Platform} $|$ \emph{ASP.NET Core, React 19, YARP, Stripe}}{2025 -- Present}
+          \resumeItemListStart
+            \resumeItem{Designed a scalable e-commerce platform featuring 5 decoupled microservices, a YARP reverse proxy gateway, and a React 19 Single Page Application.}
+            \resumeItem{Implemented multi-criteria catalog search and filtering with server-side pagination headers, basket management with Stripe coupon validation, and end-to-end checkout with automated webhook status synchronization.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Pro Track — Task \& Workflow Tracking Web App} $|$ \emph{React, Node.js, MySQL}}{Aug 2023 -- May 2024}
+          \resumeItemListStart
+            \resumeItem{Built a real-time work completion and team productivity tracker featuring role-based dashboards and status feeds to enhance project operational transparency.}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Bachelor of Engineering in Computer Science and Engineering}{Jun 2021 -- May 2025}
+      {Kamaraj College of Engineering and Technology (Autonomous) --- Percentage: 65.9\%}{Tamil Nadu, India}
+  \resumeSubHeadingListEnd
+
+
+%-----------CERTIFICATIONS-----------
+\section{Certifications}
+ \begin{itemize}[leftmargin=0.15in, label={$\bullet$}]
+    \small{
+      \resumeItem{Java Programming --- Sololearn (2022)}
+      \resumeItem{ASP.NET Core \& Modern React Architecture Coursework}
+    }
+ \end{itemize}
+
+%-------------------------------------------
+\end{document}

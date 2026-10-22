@@ -1,0 +1,11 @@
+UserName = "Admin"
+Email = "@admin"
+Pass =  "admin@CrapCart"
+
+UserName = "Seller"
+Email = "@seller"
+Pass =  "seller@CrapCart"
+
+UserName = "Buyer"
+Email = "@buyer"
+Pass =  "buyer@CrapCart"

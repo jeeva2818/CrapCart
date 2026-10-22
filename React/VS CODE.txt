@@ -1,0 +1,19 @@
+cd project-name     # enter folder
+cd ..               # go back
+npm run dev         # start React app
+
+
+check project ->
+
+dir
+
+Delete a Project -> 
+
+Remove-Item -Recurse -Force "project name"
+
+
+
+
+
+
+

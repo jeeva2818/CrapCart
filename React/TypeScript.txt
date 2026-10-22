@@ -1,0 +1,55 @@
+Lesson 1: TypeScript setup + Type inference
+
+
+FileCreation:
+
+	app.ts(eg)
+
+ForCompile:
+
+	tsc app.ts (it converts the typescript to js)
+
+ForRun:
+
+	node app.js
+
+
+
+WorkFlow :
+
+
+app.ts  (You write TypeScript)
+   |
+   | tsc app.ts
+   ↓
+app.js  (Generated JavaScript)
+   |
+   | node app.js
+   ↓
+Output
+
+
+
+
+Types: 
+
+	1) String
+	2) Number 
+	3) Boolean
+	4) Any
+	5) Unknown
+	6) Null and Undefined
+	7) Void
+	8) Never
+
+Array & Tuples :
+
+Array :
+
+
+Use to store all product names
+
+
+Tuples :
+
+Used to store the details of a single product

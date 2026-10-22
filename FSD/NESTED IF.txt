@@ -1,0 +1,63 @@
+NESTED IF
+
+
+using System;
+
+class Program
+{
+static void Main()
+{
+Console.WriteLine("Enter a Valid");    
+string ageStr = Console.ReadLine();
+int age;
+bool result = int.TryParse(ageStr,out age);
+if (result)
+{
+if (age>18)
+{
+Console.WriteLine("You are allowed");
+}
+else
+{
+Console.WriteLine("You are notAllowed");
+}
+}
+else
+{
+Console.WriteLine("Enter a Valid Input");
+}
+}
+}
+
+
+Switch Case
+
+
+
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+
+using System;        //Switch Case
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Enter The Input");
+        string name = Console.ReadLine();
+        switch(name.ToLower())
+        {
+            case "jeeva":
+            Console.WriteLine("User jeeva Found");
+            break;
+            
+            case "noje":
+            Console.WriteLine("User noje Found");
+            break;
+            
+            default:
+            Console.WriteLine("Enter a Valid User");
+            break;
+        }
+    }
+}

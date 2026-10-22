@@ -1,0 +1,197 @@
+API CREATION
+
+Create a folder name => Model => Create Class
+
+Inside Class ===>>>
+
+using System.ComponentModel.DataAnnotations;
+
+namespace WebApp.Model
+{
+    public class Stud  //Add the Property as Needed
+    {
+        // string? int? is null (no need to enter data) if = Null! is not null (must enter data)
+        [Key]
+        public int id { get; set; }
+        [Required]
+        public string? Name { get; set; }
+        public string? Address { get; set; }
+        public int Phone { get; set; }
+
+    }
+}
+
+Packages //
+=> Microsoft.EntityFrameWorkCore - DbContext and DbSet
+=> Microsoft.EntityFrameWorkCore.Tools - Migration and Scaffold
+=> Microsoft.EntityFrameWorkCore.Design - Design Components
+=> Sql Server - Server Connection -----------To Check Package installation GoTo - Dependencies =>Packages------
+
+DBCONTEXT
+
+Create a Folder name as Db => Create a class Name as ApplicationDbContext.cs  ----=> Create a Constractor and inherite the DbContext ~ "For access the FrameWork"
+
+using Microsoft.EntityFrameworkCore;
+using WebApp.Model;
+
+namespace WebApp.Db
+{
+    public class ApplicationDbContext : DbContext //inherit the Framework
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext>Options) : base(Options) //Create a database
+        {
+                
+        }
+        public DbSet<Stud> Studs { get; set; } //Name as Db Studs
+    }
+}
+
+
+Connect to Sql Server 
+
+=> Go to appsetting.json
+
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}           
+
+Connect Server Using Db
+
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\jeeeeeeeeaaa;Database=Stud;Trusted_Connection=True"   //Using ConnectionStrings to Set as DefaultConnection 
+  }
+}
+
+Add The DefaultConnection To the Prograam.cs File For Run The Server to Access The Db
+
+
+using Microsoft.EntityFrameworkCore;
+using WebApp.Db;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+var app = builder.Build();           ///////////// DbContext CreatedAfter thissss.
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+
+
+For Create Table Add the Migration
+
+	=> For Create the Table in the Database
+	=> Tools => Nuget Package Manager =>Package Manager Console - it goes Migration then 
+	=> enter - add-migration
+	=> name: Set name /it create the migration folder and add the name to create the db 
+	=> for delete Migration File - remove-migration 
+
+	=>update-database   //only after this show in the database
+	//Connected database to vs 
+
+Create API
+
+
+	=> Create a Controller - Create a folder "Controller" to Create a Controller name same as model name with Controller
+
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using WebApp.Db;
+using WebApp.Model;
+
+namespace WebApp.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class StudController : ControllerBase
+    {
+        private readonly ApplicationDbContext _db;
+        public StudController(ApplicationDbContext Db)
+        {
+            _db = Db;
+        }
+        [HttpPost]
+        [Route("Create")]
+        public IActionResult Create([FromBody] Stud s1)
+        {
+            _db.Studs.Add(s1);
+            _db.SaveChanges();
+            return Ok(s1);
+        }
+        [HttpGet]
+        [Route("GetAllStud")]
+        public IActionResult GetAll()
+        {
+            List<Stud> Stud = new List<Stud>();
+            Stud = _db.Studs.ToList();
+            return Ok(Stud);
+        }
+        [HttpGet]
+        [Route("GetById")]
+        public IActionResult GetById(int id)
+        {
+            Stud s1 = _db.Studs.FirstOrDefault(x => x.id == id);
+            return Ok(s1);
+        }
+        [HttpPut]
+        [Route("Update")]
+        public IActionResult Update([FromBody] Stud s1)
+        {
+            _db.Update(s1);
+            _db.SaveChanges();
+            return Ok(s1);
+        }
+        [HttpDelete]
+        [Route("Delete")]
+        public IActionResult DeleteById(int id)
+        {
+            Stud s1 = _db.Studs.FirstOrDefault(x => x.id == id);
+            _db.Remove(s1);
+            _db.SaveChanges();
+            return Ok(s1);
+        }
+    }
+}  //Example
+
+
+Then
+
+=> then Run The Project in Swagger for What are the fields were we add the controller they show the output page to try to execute it run or not.
+
+Then
+
+=> PostMan - for test the api
+
+
+

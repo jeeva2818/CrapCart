@@ -1,0 +1,138 @@
+--------------React------------
+-> React is a JavaScript library used to build user interfaces (UI), especially for web applications.
+-> React updates the UI automatically when data changes.
+=> Reusable Components
+-> Instead of writing the same code repeatedly, you create a component once and reuse it.
+
+
+
+
+
+Component :- Create a Component:-
+
+	function Navbar() {  // create a function to display the navbar on the page
+    return(
+        <nav>
+            <h2>app</h2>
+            <button> Log In</button>
+        </nav>
+    );
+    
+}
+export default Navbar;  //export for use in main file to display to op
+
+then import these Navbar file in App.jsx
+
+Import:-
+	
+import './App.css'
+import Navbar from "./Navbar";
+function App() {
+  return (
+    <>
+      <Navbar />
+    </>
+  );
+}
+
+export default App
+
+
+=> Props
+
+-> app.jsx
+
+import './App.css'
+import './index.css'
+import Course from './Course.jsx'
+import HTML from "./assets/html.jpg"
+import CSS from "./assets/css.jpg"
+import JS from "./assets/js.jpg"
+function App() {
+  return (
+    <>
+      <Course name="HTML" price="$199" image={HTML} rating="5⭐"/>
+      <Course name="CSS" price="$299" image={CSS} rating="4⭐" />
+      <Course name="JavaScript" image={JS} rating="3⭐" />
+    </>
+  );
+}
+
+export default App
+
+-> Course.jsx
+
+/*import HTML from "./assets/htcsjs.jpg";
+
+function Course({ name = "No Course", price = "Free", image = HTML }) {
+    return (
+        <div className="card">
+            <img src={image} alt="" />
+            <h3>{name}</h3>
+            <p>{price}</p>
+        </div>
+    );
+}
+
+export default Course;*/
+
+import HTML from "./assets/htcsjs.jpg";
+
+function Course(props) {
+    return (
+        <div className="card">
+            <img src={props.image} alt="" />
+            <h3>{props.name}</h3>
+            <p>{props.price}</p>
+            <p>{props.rating}</p>
+        </div>
+    );
+}
+
+// Default props
+Course.defaultProps = {
+    name: "No Course",
+    price: "$99",
+    image: HTML,
+    rating: "0⭐"
+};
+
+-> index.css
+
+.card{
+  background-color: beige;
+  max-width: 200px;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-family: sans-serif;
+  margin: 10px;
+  padding:2px;
+  text-align: center;
+  display: inline-block;
+}
+.card img{
+  width: 100%;
+  border-radius: 5px;
+}
+
+
+export default Course;
+
+
+
+✅ Components 
+✅ JSX
+✅ Props
+✅ Event Handling
+✅ useState
+✅ Conditional Rendering
+✅ Lists (map) and Keys
+✅ Forms
+✅ useEffect
+✅ React Router
+✅ API Calls
+✅ Build a complete Food Delivery project
+
+
+
+

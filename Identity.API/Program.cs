@@ -31,6 +31,12 @@ builder.Services
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<IdentityContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

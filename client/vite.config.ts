@@ -1,4 +1,3 @@
-
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import mkcert from 'vite-plugin-mkcert'
@@ -17,9 +16,8 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: '../CrapCart/wwwroot',
+    outDir: 'dist',
     emptyOutDir: true,
     chunkSizeWarningLimit: 1024,
   },
 })
-

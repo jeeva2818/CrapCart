@@ -6,22 +6,32 @@ import { toast } from 'react-toastify'
 import type { Address, User } from '../../app/models/user'
 import type { LoginSchema } from '../../lib/schemas/loginSchema'
 
+export type LoginResponse = {
+    tokenType: string
+    accessToken: string
+    expiresIn: number
+    refreshToken: string
+}
+
 export const accountsApi = createApi({
     reducerPath: 'accountApi',
     baseQuery: baseQueryWithErrorHandling,
     tagTypes: ['UserInfo'],
 
     endpoints: builder => ({
-        login: builder.mutation<void, LoginSchema>({
+        login: builder.mutation<LoginResponse, LoginSchema>({
             query: (creds) => ({
-                url: 'login?useCookies=true',
+                url: 'login',
                 method: 'POST',
                 body: creds
             }),
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    await queryFulfilled
+                    const { data } = await queryFulfilled
+                    if (data?.accessToken) {
+                        localStorage.setItem('crapcart_token', data.accessToken)
+                    }
 
                     dispatch(
                         accountsApi.util.invalidateTags(['UserInfo'])
@@ -74,13 +84,17 @@ export const accountsApi = createApi({
             }),
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                await queryFulfilled
-
-                dispatch(
-                    accountsApi.util.invalidateTags(['UserInfo'])
-                )
-
-                router.navigate('/')
+                try {
+                    await queryFulfilled
+                } catch (error) {
+                    console.log('Logout api notice:', error)
+                } finally {
+                    localStorage.removeItem('crapcart_token')
+                    dispatch(
+                        accountsApi.util.invalidateTags(['UserInfo'])
+                    )
+                    router.navigate('/')
+                }
             }
         }),
 

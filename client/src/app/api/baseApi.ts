@@ -14,7 +14,14 @@ type ErrorResponse =
 
 const customBaseQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
-    credentials: 'include'
+    credentials: 'include',
+    prepareHeaders: (headers) => {
+        const token = localStorage.getItem('crapcart_token')
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`)
+        }
+        return headers
+    }
 })
 
 const sleep = () =>
@@ -70,11 +77,14 @@ export const baseQueryWithErrorHandling = async (
                 break
 
             case 401:
-                if (
-                    typeof responseData === 'object' &&
-                    'title' in responseData
-                ) {
-                    toast.error(responseData.title)
+                localStorage.removeItem('crapcart_token')
+                if (typeof responseData === 'object' && responseData) {
+                    const msg = (responseData as any).detail === 'Failed'
+                        ? 'Invalid email or password'
+                        : ('title' in responseData ? responseData.title : 'Unauthorized')
+                    toast.error(msg)
+                } else if (typeof responseData === 'string') {
+                    toast.error(responseData)
                 }
                 break
 

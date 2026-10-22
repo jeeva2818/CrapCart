@@ -301,7 +301,7 @@ export default function ProductDetails() {
                   }
                 }}
               >
-                BUY
+              BUY
               </Button>
             </Grid>
           </Grid>

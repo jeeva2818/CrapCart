@@ -22,10 +22,15 @@ const LoginForm = () => {
     })
 
     const onSubmit = async (data: LoginSchema) => {
-    await login(data)
-    await fetchUserInfo()
-    navigate(location.state?.from || '/catalog')
-}
+        try {
+            await login(data).unwrap()
+            await fetchUserInfo().unwrap()
+            const destination = location.state?.from?.pathname || location.state?.from || '/catalog'
+            navigate(destination)
+        } catch (error) {
+            console.error('Login error:', error)
+        }
+    }
     return (
         <Container
             component={Paper}

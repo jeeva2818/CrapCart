@@ -7,5 +7,5 @@ Email = "@seller"
 Pass =  "seller@CrapCart"
 
 UserName = "Buyer"
-Email = "@buyer"
-Pass =  "buyer@CrapCart"
+Email = @buyer
+Pass =  buyer@CrapCart

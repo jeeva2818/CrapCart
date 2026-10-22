@@ -1,7 +1,6 @@
 import type { Product } from '../../app/models/products'
 import { currencyFormat } from '../../lib/util'
 import {
-  Box,
   Card,
   CardContent,
   CardMedia,
@@ -40,27 +39,6 @@ export default function ProductCard({ product }: Props) {
         }
       }}
     >
-      {/* Free delivery badge */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 10,
-          left: 10,
-          bgcolor: '#22c55e',
-          color: '#ffffff',
-          px: 1.2,
-          py: 0.35,
-          borderRadius: '14px',
-          fontSize: '0.72rem',
-          fontWeight: 800,
-          letterSpacing: 0.3,
-          zIndex: 2,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.5)'
-        }}
-      >
-        Free delivery
-      </Box>
-
       {/* Full-Bleed Top Image Box */}
       <CardMedia
         component="img"

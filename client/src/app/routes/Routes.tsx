@@ -1,4 +1,3 @@
-
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import App from '../layouts/App'
 import Catalog from '../../features/catalog/catalog'
@@ -15,8 +14,7 @@ import RegisterForm from '../../features/accounts/RegisterForm'
 import RequireAuth from '../RequireAuth'
 import OrdersPage from '../../features/orders/OrdersPage'
 import OrderDetailsPage from '../../features/orders/OrderDetailsPage'
-import HomePage from '../../features/home/HomePage'
-import InventoryPage from "../../features/admin/InventoryPage";
+import InventoryPage from "../../features/admin/InventoryPage"
 import SellerOrdersPage from '../../features/seller/SellerOrdersPage'
 
 export const router = createBrowserRouter([
@@ -26,7 +24,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <HomePage />
+                element: <Navigate replace to="/catalog" />
             },
             {
                 path: '/catalog',

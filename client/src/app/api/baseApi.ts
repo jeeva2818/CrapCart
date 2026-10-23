@@ -28,19 +28,11 @@ const customBaseQuery = fetchBaseQuery({
     }
 })
 
-const sleep = () =>
-    new Promise(resolve => setTimeout(resolve, 1000))
-
 export const baseQueryWithErrorHandling = async (
     args: string | FetchArgs,
     api: BaseQueryApi,
     extraOptions: object
 ) => {
-
-    if (import.meta.env.DEV) {
-        await sleep()
-    }
-
     api.dispatch(startLoading())
 
     const result = await customBaseQuery(

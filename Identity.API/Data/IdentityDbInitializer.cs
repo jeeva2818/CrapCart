@@ -1,4 +1,3 @@
-
 using Identity.API.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -38,67 +37,45 @@ public static class IdentityDbInitializer
             }
         }
 
-        // 1. Admin: @admin / admin@CrapCart
-        var admin = await userManager.FindByNameAsync("@admin");
-        if (admin == null)
+        async Task EnsureUserAsync(string username, string email, string password, string[] userRoles)
         {
-            admin = new User
+            var user = await userManager.FindByNameAsync(username)
+                       ?? await userManager.FindByEmailAsync(email);
+
+            if (user == null)
             {
-                UserName = "Admin",
-                Email = "@admin"
-            };
-            var result = await userManager.CreateAsync(admin, "admin@CrapCart");
-            if (!result.Succeeded)
-            {
-                Console.WriteLine($"Failed to create admin: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                user = new User
+                {
+                    UserName = username,
+                    Email = email
+                };
+                var result = await userManager.CreateAsync(user, password);
+                if (!result.Succeeded)
+                {
+                    Console.WriteLine($"Failed to create user '{username}': {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                    return;
+                }
             }
-        }
-        foreach (var r in new[] { "admin", "seller", "buyer", "member" })
-        {
-            if (!await userManager.IsInRoleAsync(admin, r))
-                await userManager.AddToRoleAsync(admin, r);
+
+            foreach (var r in userRoles)
+            {
+                if (!await userManager.IsInRoleAsync(user, r))
+                {
+                    await userManager.AddToRoleAsync(user, r);
+                }
+            }
         }
 
-        // 2. Seller: @seller / seller@CrapCart
-        var seller = await userManager.FindByNameAsync("@seller");
-        if (seller == null)
-        {
-            seller = new User
-            {
-                UserName = "Seller",
-                Email = "@seller"
-            };
-            var result = await userManager.CreateAsync(seller, "seller@CrapCart");
-            if (!result.Succeeded)
-            {
-                Console.WriteLine($"Failed to create seller: {string.Join(", ", result.Errors.Select(e => e.Description))}");
-            }
-        }
-        foreach (var r in new[] { "seller", "member" })
-        {
-            if (!await userManager.IsInRoleAsync(seller, r))
-                await userManager.AddToRoleAsync(seller, r);
-        }
+        // Support both @admin and admin / admin@crapcart.com
+        await EnsureUserAsync("@admin", "@admin", "admin@CrapCart", ["admin", "seller", "buyer", "member"]);
+        await EnsureUserAsync("admin", "admin@crapcart.com", "admin@CrapCart", ["admin", "seller", "buyer", "member"]);
 
-        // 3. Buyer: @buyer / buyer@CrapCart
-        var buyer = await userManager.FindByNameAsync("@buyer");
-        if (buyer == null)
-        {
-            buyer = new User
-            {
-                UserName = "Buyer",
-                Email = "@buyer"
-            };
-            var result = await userManager.CreateAsync(buyer, "buyer@CrapCart");
-            if (!result.Succeeded)
-            {
-                Console.WriteLine($"Failed to create buyer: {string.Join(", ", result.Errors.Select(e => e.Description))}");
-            }
-        }
-        foreach (var r in new[] { "buyer", "member" })
-        {
-            if (!await userManager.IsInRoleAsync(buyer, r))
-                await userManager.AddToRoleAsync(buyer, r);
-        }
+        // Support both @seller and seller / seller@crapcart.com
+        await EnsureUserAsync("@seller", "@seller", "seller@CrapCart", ["seller", "member"]);
+        await EnsureUserAsync("seller", "seller@crapcart.com", "seller@CrapCart", ["seller", "member"]);
+
+        // Support both @buyer and buyer / buyer@crapcart.com
+        await EnsureUserAsync("@buyer", "@buyer", "buyer@CrapCart", ["buyer", "member"]);
+        await EnsureUserAsync("buyer", "buyer@crapcart.com", "buyer@CrapCart", ["buyer", "member"]);
     }
 }
